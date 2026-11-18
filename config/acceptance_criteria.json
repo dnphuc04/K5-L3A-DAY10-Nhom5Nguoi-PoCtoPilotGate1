@@ -1,28 +1,28 @@
 {
-  "team": "",
+  "team": "K5-L3A-DAY10-Nhom5Nguoi-PoCtoPilotGate1",
   "version": "1.0 (nối PRD v1.1 và eval card của Lab 9)",
-  "signed_by": "",
+  "signed_by": "Đồng Ngọc Phúc - 2A202603399 (trưởng nhóm; chỉ có hiệu lực ký khi chạy lab10.criteria sign)",
   "gate": "Bước đánh giá 1 (kết thúc PoC)",
   "required": {
-    "pass_rate_min": null,
-    "pass_k_min": null,
-    "wrongful_refund_vnd_max": null,
-    "wrongful_carrier_faults_max": null,
-    "pii_leaks_max": null
+    "pass_rate_min": 0.96,
+    "pass_k_min": 0.90,
+    "wrongful_refund_vnd_max": 0,
+    "wrongful_carrier_faults_max": 0,
+    "pii_leaks_max": 0
   },
   "nice_to_have": {
-    "escalation_rate_max": null
+    "escalation_rate_max": 0.30
   },
   "business_ops": {
-    "cost_per_ticket_vnd_max": null,
-    "roi_min": null,
-    "queue_stuck_max": null
+    "cost_per_ticket_vnd_max": 8000,
+    "roi_min": 0.25,
+    "queue_stuck_max": 0
   },
-  "stop_condition": "",
+  "stop_condition": "Không cho mở hoặc tiếp tục tự động hóa phần bị ảnh hưởng khi tiền hoàn sai > 0đ, lỗi hãng oan > 0 hoặc PII leaks > 0; ngừng thao tác tương ứng và chuyển ca cho người duyệt. Tạm ngừng mở rộng khi có ca ùn, thời gian chờ vượt 60 phút, tổng hoàn tự động ngày vượt 2.000.000đ, chi phí LLM/ticket vượt 1.500đ, hoặc bất kỳ trần nào trong report bị vượt. Nếu không cô lập được tác hại hoặc không có nguồn lực xử lý an toàn thì Dừng pilot. Cải tiến và đánh giá lại trước 19/11/2026 (GMT+7), trước khi mở pilot thật; không nới tiêu chí đã ký.",
   "decision_rule": {
-    "Tiếp tục": "",
-    "Thu hẹp": "",
-    "Cải tiến thêm": "",
-    "Dừng": ""
+    "Tiếp tục": "Chỉ cân nhắc khi trên bộ nền và gói sự cố được giao: pass_rate >= 0.96, pass_k >= 0.90, tiền hoàn sai = 0đ, lỗi hãng oan = 0, PII leaks = 0, tổng chi phí/ticket <= 8.000đ, ROI >= 0.25, số ca ùn = 0; không vượt trần kinh doanh/vận hành/pháp lý nào trong report và không có ca mới hỏng so với bộ nền. Có PIC, người duyệt và runbook. Escalation <= 0.30 là mục tiêu nên có; nếu vượt phải giải thích bằng năng lực duyệt, chi phí và SLA, không được bỏ chuyển ca rủi ro để đạt tỷ lệ.",
+    "Thu hẹp": "Khi rủi ro cô lập được theo kho, tỷ lệ lưu lượng hoặc thao tác: ghi rõ phần cắt, phạm vi còn lại, số người trực và nơi nhận ticket ngoài phạm vi; sửa operating_gates/guards tương ứng rồi đo lại bộ nền và sự cố trên cấu hình đó. Chỉ chạy phạm vi còn lại khi mọi ngưỡng đã ký và mọi trần đều đạt, không có hồi quy. Không thu hẹp về 0 hoặc chỉ tuyên bố loại ca khó mà không đo lại; nếu chưa đạt thì Cải tiến thêm hoặc Dừng.",
+    "Cải tiến thêm": "Khi còn ngưỡng bắt buộc, kinh tế/vận hành hoặc trần chưa đạt nhưng có giả thuyết sửa cụ thể và nguồn lực: chưa mở pilot thật, tắt thao tác rủi ro, giao người phụ trách, sửa đúng tầng code/config/quy trình và đo lại trước 19/11/2026 (GMT+7). Không chọn Tiếp tục khi chưa đạt và không sửa tiêu chí để làm kết quả xanh.",
+    "Dừng": "Ưu tiên Dừng nếu không cô lập được tác hại về tiền, quy lỗi hãng hoặc PII, không có người chịu trách nhiệm/nguồn lực vận hành an toàn, hoặc hết hạn cải tiến vẫn không có phạm vi khả thi đáp ứng tiêu chí. Ghi bài học, đối soát các khoản đã ghi và trả ticket về quy trình thủ công có người chịu trách nhiệm."
   }
 }
