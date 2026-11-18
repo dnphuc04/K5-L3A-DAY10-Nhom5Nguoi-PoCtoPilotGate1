@@ -17,7 +17,7 @@ Thẻ S8: chị Hạnh bị đứng tên các khoản dùng mã duyệt sai ph�
 | Chi phí/ticket | 11.225đ | 2.952đ | 2.952đ |
 | ROI | -2,45 | 2,39 | 2,39 |
 
-Nguồn: `runs/grade-report.json`, grade `R-S8-grade-20261118-172906-726304`. Một người trực, 6 ca/giờ, độ phủ 100%; không dùng tăng người hoặc cắt hết phạm vi để làm xanh.
+Nguồn: `runs/grade-report.json`, grade `R-S8-grade-20261118-174256-726304`. Một người trực, 6 ca/giờ, độ phủ 100%; không dùng tăng người hoặc cắt hết phạm vi để làm xanh.
 
 ## 1:00–2:15 · Một ca sai và một ca đúng
 
@@ -47,7 +47,7 @@ Lòng tin là mô hình mock, không phải phỏng vấn người thật; quy�
 
 ## 4:15–5:00 · Quyết định và điều kiện còn thiếu
 
-V2 giữ **Cải tiến thêm**: ngưỡng số, visible, regression và monitor đã đạt, nhưng integrity còn đỏ do CRLF/LF và manifest yêu cầu thẻ khác. Không sửa manifest hoặc lấy thẻ không được giao; đang chờ hướng dẫn Coach. Hồ sơ đã đủ thành phần không đồng nghĩa bài qua chấm.
+V2 giữ **Cải tiến thêm**: ngưỡng số, integrity, visible, regression và monitor đã đạt. Cần xác minh nguồn quyền, ghi đồng thời, công suất và đồng thuận kiểm mẫu của người thật trước pilot. Nhóm đã khôi phục byte gốc và tải đủ thẻ để khớp manifest theo yêu cầu trưởng nhóm; việc tải đủ thẻ khác hướng dẫn ban đầu, đã khai báo và chưa có xác nhận ngoại lệ của Coach. Hồ sơ đủ thành phần và PASS-VISIBLE chưa bảo đảm điểm/test ẩn.
 
 Trước Gate 2: xác minh đồng bộ/cấp thu hồi quyền, an toàn giao dịch đồng thời, audit tiền, lưu lượng giờ cao điểm, chi phí theo kho, log và người duyệt thật có hiểu/đồng ý kiểm mẫu hay không.
 

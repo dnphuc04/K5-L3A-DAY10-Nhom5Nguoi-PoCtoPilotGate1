@@ -26,89 +26,27 @@ Ghi `members` trong `submission/submission.json` theo dạng `"HoVaTen-MSSV"`, k
 AI đã hỗ trợ hoàn thiện Phiếu C C2–C12, hai monitor, quyết định v2 và hồ sơ nộp từ dữ liệu/trace thật. Đây là phần hỗ trợ chung theo yêu cầu Phúc; không gán các công việc AI vừa làm thành việc từng thành viên đã tự thực hiện. Giữ phân công bên dưới để đối chiếu vai trò; các câu “chờ làm vòng 2” ở phần lịch sử không phải trạng thái mới nhất.
 
 - V1: commit `162a430`, snapshot `518a9ba2`; thẻ S8 nhận ở `e75155b`.
-- V2: **Cải tiến thêm**, grade `R-S8-grade-20261118-172906-726304`: visible/criteria/regression/monitor đạt, integrity chưa đạt; hidden chưa chạy.
+- V2: **Cải tiến thêm**. Grade mới nhất `R-S8-grade-20261118-174256-726304`: **PASS-VISIBLE**; integrity/criteria/visible/regression/monitor đều đạt, `changed=[]`; test ẩn chưa chạy. Kết quả integrity chưa đạt trong report trước là trạng thái lịch sử.
 - Sau: S8 260/260 đúng, nền110/110, 13 public tests đạt, không hoàn sai/lỗi oan/PII; S8 0 ùn,2.952đ/ticket,ROI2,39. Hai monitor đã thêm; guards/config không đổi so prepared.
 - Xác nhận cá nhân: ngày 18/11/2026, trưởng nhóm Đồng Ngọc Phúc thông báo cả nhóm đã tự rà soát và xác nhận các mục cá nhân cùng exit ticket. Đây là xác nhận nội dung, không thay chữ ký tay, phê duyệt pilot hoặc việc nộp LMS.
-- Còn thiếu xác nhận/bằng chứng: hướng dẫn Coach về integrity, report cũ của Hưng đã xóa nhầm, không khôi phục được theo xác nhận của trưởng nhóm (hai report của Hoàng đã được bổ sung) và việc mỗi người nộp LMS.
+- Chứng cứ: hai report gốc của Hoàng đã được bổ sung. Theo xác nhận của trưởng nhóm, report cũ của Hưng đã bị xóa nhầm và không khôi phục được; số liệu trong Phiếu B còn thiếu file gốc để đối chiếu.
+- Cần xác nhận ngoài bộ kiểm tự động: Coach chưa xác nhận ngoại lệ cho việc tải đủ thẻ để khớp manifest; từng thành viên cần tự nộp link repo lên LMS. Integrity hiện đã đạt ở report mới nhất.
 
-## Phân công và thứ tự phối hợp
+## Phân công và kết quả bàn giao
 
-Đây là phân công cần thực hiện, không phải xác nhận mọi người đã hoàn thành. Mỗi người tự cập nhật đóng góp, bằng chứng và exit ticket của mình trước khi nộp.
+Bảng này ghi vai trò đã phân công; phần triển khai chung bằng AI và xác nhận nội dung của nhóm được nêu ở trạng thái phía trên và mục cá nhân, không coi phân công là bằng chứng mỗi người tự làm toàn bộ.
 
-### Phân công vòng 1 đã qua · Khối 2A (lưu để đối chiếu đóng góp)
-
-| Người phụ trách | Câu / mục phiếu | Công việc cụ thể | Sản phẩm bàn giao |
-|---|---|---|---|
-| Đồng Ngọc Phúc | 2.1 · B0 dòng 1, B1; điều phối 2.5 · B6 | Kiểm tra phân tích baseline, đối chiếu tiêu chí đã ký; tổng hợp kết quả B2–B5 và chủ trì pre-mortem bốn lăng kính. | B0–B1 có mã chạy và số liệu; B6 sau thảo luận chung. Baseline đã chạy: `R-base-before-20261118-154608-bde05c`, hoàn sai 20.000đ và 1 lỗi hãng oan tại `T-002@55`. |
-| Vũ Văn Hảo | 2.2 · B2 | Chạy `python -m lab10.trace --suite base --ticket T-002 --seed 55`; xác định bước sai đầu tiên; điền đủ ba phần ghi lỗi, tìm nguồn và hướng xử lý. | B2 có dòng trace, loại lỗi, người chịu hại và hướng xử lý; không chỉ ghi kết quả cuối. |
-| Nguyễn Trần Anh Khôi | Hỗ trợ 2.2 · B2; chuẩn bị 2.7–2.8 | Đối chiếu trace của Hảo với tracking/chính sách, kiểm tra cả thao tác hoàn tiền và ghi lỗi hãng; đề xuất một tính chất và hai ticket mới để kiểm sau khi có guard. | Góp ý cho Hảo tích hợp vào B2; gửi dự thảo behavioral test cho cả nhóm, chưa ghi rằng đã chạy test. |
-| Nguyễn Việt Hưng | 2.3 · B3 | Điền bản đồ dữ liệu: trường then chốt, nguồn sự thật/bản sao, điểm có thể lệch; viết một ví dụ drift có thời điểm, trường thay đổi, metric bị ảnh hưởng và tín hiệu phát hiện. | B3 hoàn chỉnh, dẫn dữ liệu trong `data/world.json`; phân biệt đầu vào đổi và quan hệ vào–ra đổi. |
-| Nguyễn Huy Hoàng | 2.4 · B4–B5 | HAZOP trên một tool ghi: ít nhất 3 dòng, thêm ít nhất 2 dòng ngoài kỹ thuật; điền checklist 9 nhóm việc với trạng thái, bằng chứng và PIC có tên. | B4–B5 hoàn chỉnh; các việc chưa làm ghi đúng trạng thái, không ghi hoàn tất nếu chưa có bằng chứng. |
-
-Sau khi có B2–B5, cả nhóm cùng làm B6: kỹ thuật, kinh doanh, con người/vận hành, pháp lý; chọn 2–3 nguyên nhân để biến thành cổng vòng 1.
-
-### Phân công vòng 1 đã qua · Khối 2B và quyết định v1
-
-| Người phụ trách | Câu / mục phiếu | Công việc và file |
+| Người | Vòng 1 | Vòng 2 / hồ sơ chung |
 |---|---|---|
-| Đồng Ngọc Phúc | 2.6 · B7.1; B0, B8 | Tích hợp và sở hữu bản sửa cuối của `lab10/guards.py`; nhận đề xuất từ Hảo/Khôi, viết 2–3 cổng theo B6/HAZOP; chạy eval/test. Sau khi cả nhóm rà soát, chạy checkpoint đúng một lần, eval prepared, gate; ghi B0 và bằng chứng B8, commit/push bản chốt. |
-| Vũ Văn Hảo | Hỗ trợ 2.6 · B7.1 | Đề xuất kiểm tra quyền lợi hoàn tiền từ tracking/chính sách và căn cứ ghi lỗi hãng; gửi code hoặc diff cho Phúc tích hợp; xác minh `T-002@55` sau sửa và ghi trace trước/sau vào B7.1. |
-| Nguyễn Trần Anh Khôi | 2.7–2.8 · B7.2–B7.3 | Viết hai bước tránh rò rỉ dữ liệu đánh giá; hoàn thiện tính chất và hai ticket mới, chạy `trace --adhoc` sau khi guard được tích hợp; chạy public tests, báo ca mới hỏng và lưu bằng chứng, giữ ticket cho demo. |
-| Nguyễn Việt Hưng | 2.9 · B7.4; B8 | Sở hữu `business` trong `config/operating_gates.json`: trần hoàn ngày, ngân sách LLM, phạm vi pilot và ROI; giải thích từng lựa chọn từ `ops_limits`/`ops_facts`. Soạn lý do quyết định v1 theo tiêu chí đã ký để cả nhóm chốt. |
-| Nguyễn Huy Hoàng | 2.10 · B7.5–B7.6 | Sở hữu `operations` và `legal` trong config: PIC, approver, nhân sự/công suất, SLA, điều kiện dừng, kênh báo tin, PII và căn cứ lỗi hãng; viết runbook 1–3, thời hạn dừng và phương án giờ cao điểm khớp config. |
+| Đồng Ngọc Phúc | Phiếu A, B0–B1; tổng hợp B6, tích hợp G1–G3, checkpoint và B8 | Tích hợp C0–C12, monitor, grade và bài nộp với AI hỗ trợ; điều phối kiểm chứng và demo |
+| Vũ Văn Hảo | B2, hai nhánh cổng hoàn tiền và lỗi hãng; commit e343e00 | Phụ trách rà C2/C7 và quyền hạn; nội dung vòng 2 do AI tổng hợp chung, nhóm xác nhận |
+| Nguyễn Trần Anh Khôi | B7.2–B7.3, phát hiện rủi ro PII ngoài bộ nền; commit 487f7e7 | Phụ trách rà C8/monitor; hai monitor được AI hỗ trợ triển khai chung |
+| Nguyễn Việt Hưng | B3, business, dự thảo B8, rà A5; commit aed304f | Phụ trách rà specification C5 và kinh tế C7/C12; report thử nghiệm cũ đã mất, khai báo bên dưới |
+| Nguyễn Huy Hoàng | B4–B5, operations/legal, runbook B7.5–B7.6; commit cabf5c9 | Phụ trách rà C3–C5/C10–C11; hai report gốc và journal đã bổ sung |
 
-Phúc là người tích hợp config chung: Hưng và Hoàng chỉ sửa mục được giao, đồng bộ lần lượt để tránh xung đột. Chỉ chốt vòng 1 khi cả ba mảng code, business và operations/legal đã được rà soát. Quyết định v1 do cả nhóm thống nhất, không phải quyết định riêng của người ghi phiếu.
+Vòng 1 và v1 đã chốt trước nhận S8. Grade đầu `R-S8-grade-20261118-164813-3cce15` được giữ làm lịch sử: prepared đã xử lý đúng S8 nhưng tổng FAIL vì integrity và thiếu monitor mới. Vòng 2 thêm hai monitor, giữ nguyên guards/config so prepared. Grade cuối và trạng thái hiện tại ghi phía trên; không dùng FAIL cũ làm kết luận hiện tại.
 
-### Vòng 2 · Phân công cụ thể cho thẻ S8
-
-**Đã nhận:** commit `e75155b`, sau commit chốt v1 `162a430`. Phúc đã dùng AI đọc đúng thẻ S8, ghi số thẻ và chạy grade trước mọi sửa đổi code/config vòng 2. Grade `R-S8-grade-20261118-164813-3cce15`; C0–C1 đã có bằng chứng. Prepared xử lý đúng 260/260, 0 hoàn sai/lỗi hãng/PII, 0 ùn; tổng grade FAIL vì integrity và chưa có monitor mới. Không sửa snapshot hay tiêu chí đã ký.
-
-| Người | Việc làm ngay | Bàn giao / điều kiện hoàn thành |
-|---|---|---|
-| **Phúc** | Điều phối, sở hữu C0–C1 và xử lý lỗi integrity với Coach. Tổng hợp C6/C9 cùng nhóm; sau khi nhận phần việc, chạy grade/regression, tích hợp C7/C12 và chuẩn bị demo. | Báo Coach: 23 file khớp hash khi chuẩn hóa CRLF→LF trong bộ nhớ, 28 file thiếu thuộc S1–S7 do chỉ được lấy S8. Không sửa MANIFEST/bộ chấm hoặc lấy thẻ khác. Ghi lại hướng dẫn thật của Coach, không tự xác nhận integrity đạt. |
-| **Hảo** | **C2**, góp C4/C6/C7: trace base `S8-01`, `S8-02`, `S8-03`, `S8-06` (seed 11), chọn ít nhất hai kiểu sai khác nhau; đối chứng `S8-05` hợp lệ và so prepared. | Dán approval_used và đối chiếu approvals: sai ticket/đơn/khách, hết hạn/thu hồi, vượt max_vnd; phân biệt lỗi chìm với hệ quả mất niềm tin. Chứng minh ca hợp lệ vẫn được phục vụ; không sửa guard chỉ để tạo khác biệt khi prepared đã đạt. |
-| **Khôi** | **C8**, sở hữu `lab10/monitors.py`; hỗ trợ C7 và regression. Thiết kế ít nhất một monitor mới bắt nguyên nhân S8, chỉ dùng monitor_view (không label/pass/wrongful_refund). | Đề xuất đếm sự kiện cổng từ chối/chuyển người vì approval và/hoặc rủi ro review; đăng ký MONITORS, viết đủ thước đo→dữ liệu→cách tính, kiểm base so S8 có tín hiệu khác nhau. Nếu cần thêm event guard phải phối hợp Phúc để không sửa chồng file; không dùng ID S8 làm điều kiện. |
-| **Hưng** | **C5 câu 3.2**, hỗ trợ C7/C12: specification phê duyệt và điều kiện kinh tế; đọc staff_behavior và report ba mốc, phân tích DN/chi phí, thời gian chờ và ROI. | Nêu số trước/sau đúng đơn vị; DN prepared có chi phí cao nhất 3.200đ/ticket; mọi kho đạt. Đề xuất v2 có điều kiện dựa trên số và integrity, không chọn Tiếp tục khi integrity chưa giải quyết; không tăng người hay thu hẹp vô cớ. |
-| **Hoàng** | **C3.4 Hiệu chỉnh lòng tin** cho nhân viên duyệt và trưởng ca, thêm một dòng hoàn trên hạn mức ở **C3.1 Bước 2**; **C4 >=3 dòng**, **C5 câu 3.3**, **C10–C11**. | Giải thích hai mốc tin quá mức/không tin và bằng chứng cần để tin vừa đủ; kiểm approver_id/decision_note/sampling khớp staff_behavior; risk register, checklist 9 nhóm có PIC, runbook 4–5 (điều kiện kiểm mẫu/bật lại, quyền duyệt, kiểm toán). Không ghi nhận phê duyệt của NV-HANH chưa có thật. |
-
-**Cách phối hợp:** mỗi người sửa đúng mục phiếu được giao; Khôi sửa monitors, Hưng/Hoàng chỉ đề xuất config nếu có nguyên nhân cần đổi. Phúc tích hợp guards/config và chạy lần cuối. C6/C9 do cả nhóm cung cấp nhánh, Phúc tổng hợp. Giữ nguyên Phiếu B/v1. Chỉ hoàn thành C12/submission sau khi có monitor và report cuối; hiện chưa có quyết định v2.
-
-**Lệnh trace cho Hảo (thay ID bằng đúng ticket S8 cần dò):** `python -m lab10.trace --suite S8 --stage base --ticket S8-01 --seed 11`; so với cùng lệnh `--stage prepared`. Grade chung: `python -m lab10.grade --incident S8`.
-
-### Kế hoạch làm tiếp ngay · Hoàn thiện S8 trước, xử lý integrity riêng
-
-**Trạng thái xuất phát:** vòng 1 và v1 đã chốt; S8 đã được đánh giá lần đầu, C0–C1 đã có. Không chờ integrity mới làm phần phân tích/monitor/hồ sơ. Chưa chọn Tiếp tục khi điều kiện toàn vẹn chưa được giải quyết. Phân công dưới đây là việc phải làm tiếp, không xác nhận đã hoàn thành.
-
-| Người / thứ tự | Phần được giao chính | Việc cần làm và tiêu chí bàn giao |
-|---|---|---|
-| **Hảo · làm ngay** | **C2; đề xuất cho C7** | Dò ít nhất hai lỗi khác nguồn/kiểu từ S8-01/02/03/06; đối chiếu approval_used với đúng ticket, đơn, khách, trạng thái, hạn, số tiền và người duyệt. Dán trace base và prepared; đối chứng S8-05 hợp lệ. Điền đủ ba phần bảng soát lỗi, nêu người chịu hại và tác hại định lượng. Gửi Phúc các nhánh nguyên nhân cho C6; chỉ đề xuất sửa guard nếu có lỗi còn tồn tại, không sửa để tạo khác biệt giả. |
-| **Khôi · làm ngay** | **C8 + `lab10/monitors.py`; dữ kiện C7** | Thêm ít nhất một monitor mới không dùng nhãn, đăng ký MONITORS; đo nguyên nhân S8 hoặc gánh nặng review. Kiểm giá trị giữa bộ nền và S8 khác nhau, ghi đủ công thức, mẫu số, xử lý thiếu dữ liệu, ngưỡng cảnh báo và điểm mù. Nếu đếm approval bị chặn mà guard chưa có sự kiện riêng, gửi Phúc đề xuất event và phối hợp tích hợp; không dùng ticket ID/câu chữ hoặc đọc label/pass để tạo tín hiệu. Bàn giao code, mục C8 và output chạy thật. |
-| **Hưng · làm ngay, cập nhật sau report cuối** | **C5 câu 3.2; căn cứ kinh tế C7/C12** | Viết specification có thể kiểm được về phê duyệt/trách nhiệm hoặc chi phí/hàng chờ. Phân tích base→prepared: kiểm tay 100%→10%, 36→0 ca ùn, chi phí 11.225→2.952đ/ticket, ROI -2,45→2,39; không nhầm tổng tiền qua 5 seed với tiền/ngày. Soạn đề xuất v2 và ba dòng bắt buộc, chờ mã report cuối để chốt; không tăng người hoặc cắt phạm vi khi chưa có căn cứ. Gửi report và journal gốc của các lần chạy vòng 1 được dẫn trong B7.4/TEAM.md cho Phúc. |
-| **Hoàng · làm ngay** | **C3.4 + một dòng C3.1 Bước 2; C4; C5 câu 3.3; C10–C11** | Điền hai nhóm người (nhân viên duyệt, trưởng ca đứng tên), hai mốc tin quá mức/không tin và điều kiện tin vừa đủ; mô tả quyền kiểm soát với khoản hoàn trên hạn mức. HAZOP S8 >=3 dòng, một giả định môi trường, >=1 risk register có PIC, checklist 9 nhóm và runbook 4–5. Quy trình phải khớp approver NV-HANH, decision_note=true, sampling=10%, SLA=60 phút và có cách trở lại kiểm tay khi mất tin. Chỉ điền phần C3 dành cho S8. Gửi report/journal gốc hai lần chạy vòng 1 cho Phúc. |
-| **Phúc · tổng hợp sau C2/C4/C5, song song hỏi Coach** | **C6, C7, C9; C0/report cuối; C12; tích hợp** | Dựng fault tree TRƯỚC sửa từ report S8 ban đầu, có ít nhất hai nhánh ở hai tầng và bằng chứng tại lá; không gán monitor mới vào trạng thái trước sửa. Tổng hợp C7 và fault tree SAU ở C9, chỉ rõ cổng đã có từ prepared và phần bổ sung vòng 2. Tích hợp monitor/event cần thiết, kiểm không sửa tiêu chí/snapshot/thẻ. Chạy eval S8 after, eval base after và grade cuối trên máy Phúc; ghi mã thật vào C0. Cùng nhóm chốt C12 theo bằng chứng và tình trạng integrity, không tự coi FAIL là PASS. |
-
-**Phần integrity do Phúc theo dõi riêng:** gửi Coach bằng chứng 19 file khóa đề gốc + 4 file S8 khớp sau chuẩn hóa LF, `core.autocrlf=true`, manifest liệt kê thêm 28 file S1–S7. Giữ report lỗi ban đầu, không sửa MANIFEST/bộ chấm hoặc tải thêm thẻ khác khi chưa có hướng dẫn. Ghi nguyên hướng dẫn thực tế của Coach khi nhận được; không sửa lịch sử để che lỗi.
-
-### Mốc tích hợp và hoàn thành bài nộp
-
-1. **Phân tích trước:** Hảo giao C2, Hoàng giao C3/C4 và giả định, Hưng giao specification; Phúc tổng hợp C6. Mọi người có thể phân tích và viết code trên nhánh riêng, nhưng phải giữ bằng chứng trước sửa đã lưu ở C0–C1.
-2. **Thêm theo dõi:** Khôi bàn giao monitor và C8; Phúc tích hợp code/event nếu cần. C7 ghi đúng thay đổi thực tế; không nhận guard vòng 1 là code mới vòng 2. C9 đánh dấu nhánh đã chặn, nhánh chỉ phát hiện và nhánh còn hở.
-3. **Chạy bản cuối trên máy Phúc:** `python -m lab10.eval --suite S8 --stage after --note "monitor S8 và bản tích hợp cuối"`, `python -m lab10.eval --suite base --stage after --note "kiểm hồi quy cuối S8"`, `python -m lab10.grade --incident S8`. Nếu thay đổi guard/config thì chạy thêm public tests. Report mới là bằng chứng mới, không thay thế hoặc sửa ngày các lần chạy cũ.
-4. **Quyết định:** Phúc và Hưng hoàn thiện C12: đổi/giữ so với v1, số theo kho/hãng, decision_rule, PIC, ngày quyết định lại và ba dòng bắt buộc. Hoàng kiểm nội dung vận hành/pháp lý. Nếu integrity chưa đạt thì nêu điều kiện chưa đạt và giữ quyết định phù hợp; không tuyên bố bài đã qua.
-5. **Gom bài:** Hoàng điền `submission/submission.json` (team đúng tên repo, đủ 5 `HoVaTen-MSSV`, incident=S8, v1/v2 và three_lines khớp C12). Phúc chạy `python -m lab10.check_submission --collect` trên máy có bằng chứng chung; mỗi người sửa mục thiếu thuộc phần mình tới khi ĐỦ THÀNH PHẦN. Dòng này chỉ xác nhận đủ thành phần, không thay kết luận integrity/grade.
-6. **Cá nhân và Git:** mỗi người tự viết đóng góp, bằng chứng commit/run và exit ticket; Khôi cần thay phần mẫu, Phúc/Hưng bổ sung exit ticket. Dùng `user.name=<MSSV>`, `user.email=<MSSV>@example.com` cho commit tiếp theo; không tự rewrite lịch sử đã chia sẻ. Phúc rà diff, commit/push bản cuối; mỗi thành viên tự nộp link trên LMS.
-
-**Chuyển bằng chứng giữa máy:** Hưng/Hoàng gửi nguyên thư mục các lần chạy được trích dẫn và bản journal gốc (đóng gói riêng theo người để không ghi đè journal của Phúc). Phúc giữ provenance nguồn, đối chiếu run_id rồi gom đủ log/report; không sửa nội dung report hoặc tự dựng dòng journal. Không chạy collect trên từng máy rồi ghi đè submission của nhau. Các mục cá nhân chưa thực hiện phải ghi rõ còn thiếu, không đánh dấu xong thay người khác.
-
-**Tránh xung đột:** Hảo sửa C2; Khôi sửa C8/monitors; Hưng sửa C5 câu 3.2 và bàn giao đề xuất C12; Hoàng sửa C3/C4/C5 câu 3.3/C10/C11; Phúc sửa C0/C1/C6/C7/C9/C12. Vì dùng chung Phiếu C, mỗi người chỉ stage diff phần mình, cập nhật main trước khi tích hợp và kiểm xung đột. C12 do Phúc tích hợp sau cùng.
-
-### Gom bài và phối hợp Git
-
-- Hoàng điền `submission/submission.json`, chạy hoặc phối hợp Phúc chạy `python -m lab10.check_submission --collect`; xử lý mục thiếu cùng người sở hữu phần đó.
-- Phúc kiểm report khớp code/config cuối, tổng hợp commit/push; sau demo phải trả cấu hình về bản v2 và chạy lại grade/collect.
-- Mỗi người sửa đúng mục phiếu được giao. Vì dùng chung Phiếu B/C, cập nhật từ `main` trước khi làm và rà diff khi tích hợp; không ghi đè phần của người khác.
-- Không commit file sinh tự tạo bằng tay, không dùng mã ticket/câu chữ riêng làm quy tắc guard; giữ nguyên file khóa và bản chốt.
-- Mỗi thành viên tự hoàn thiện mục cá nhân bên dưới, ghi rõ có dùng AI cho phần nào, và tự nộp link repo trên LMS theo hạn Coach quy định.
+Bài nộp đã gom report ba mốc, grade-report, nhật ký, code/config, ba phiếu và manifest. Kịch bản demo nằm ở `submission/docs/demo-s8.md`; chưa xác nhận đã demo hoặc đã nộp LMS. Nếu đổi code/config khi demo phải trả về bản v2, chạy grade và collect lại. Không sửa tiêu chí đã ký, snapshot vòng 1, Phiếu B/v1 hoặc report gốc. Mỗi người tự nộp link repo trên LMS.
 
 ## Cá nhân
 
@@ -140,7 +78,7 @@ Kỹ sư cổng: B2; hỗ trợ B7.1 (kiểm quyền lợi hoàn, căn cứ ghi 
 
 - **Vòng 1 · Khối 2A (B2):** Chạy trace trên `T-002@55` (`stage base`), xác định bước sai đầu tiên tại `03 model_override {"field": "delay_days", "db": 2, "ticket": 5}` (model lấy 5 ngày khách tự khai đè lên `db_delay_days: 2` của tracking DB), dẫn tới hai lỗi chìm nối tiếp ở `06 issue_refund` (hoàn sai `20.000đ` gây lệch sổ cho LogiX / chị Oanh `NV-OANH`) và `07 file_carrier_fault` / `08 notify_carrier` (ghi 1 lỗi oan cho hãng `VNX` và tài xế `TX-VNX-03`). Đã hoàn thành đủ 3 phần của bảng soát lỗi ở Phiếu B mục B2.
 - **Vòng 1 · Khối 2B (hỗ trợ B7.1 & `lab10/guards.py`):** Cài đặt 2 nhánh cổng trong `write_gate(ctx, action)` dùng nguồn sự thật từ `lab10/helpers.py` (`effective_policy`, `ticket_parcel`, `db_delay_days`, `entitlement_vnd`, `carrier_at_fault`) và `ctx.tools`: (1) kiểm tra trùng hoàn và đối chiếu quyền lợi hoàn tiền theo tracking DB/chính sách hiệu lực trước `issue_refund` (`deny` nếu quyền lợi `<= 0` hoặc đã hoàn, `modify` nếu lệch số tiền/`payer`, `escalate` nếu vượt `auto_limit_vnd` thiếu `approval_id`); (2) kiểm tra căn cứ ghi lỗi hãng trước `file_carrier_fault` (`deny` nếu `carrier_at_fault` là `False`, `modify` để đồng bộ `parcel_id`/`carrier_id`/`driver_id`/`delay_days` từ DB). Đã xác minh lại `T-002@55` ở `--stage after` (chuyển từ `HỎNG` sang `ĐẠT {}`, `SỔ CÁI: []`, `LỖI HÃNG: []`) và chạy `unittest discover -s tests` đạt `13/13 OK` (không làm hỏng ca nền nào). Đã ghi đối chiếu trace trước/sau vào Phiếu B mục B7.1 để Phúc rà soát/tích hợp cùng nhóm và Khôi kiểm tra thêm.
-- **Vòng 2 (`C2`, `C7`) & thảo luận chung (`B6`, fault tree):** Chờ nhóm làm tiếp B6 và tới mốc nhận thẻ phút 125 sẽ tự bổ sung sau khi hoàn thành.
+- **Vòng 2 (`C2`, `C7`):** Hồ sơ đã hoàn thiện trong phần hỗ trợ chung bằng AI theo yêu cầu Phúc và được nhóm rà soát/xác nhận; không ghi nhận Hảo tự chạy thêm các lượt vòng 2 khi chưa có chứng cứ cá nhân riêng.
 - **Sử dụng AI:** Có dùng Antigravity hỗ trợ đọc cấu trúc codebase (`guards.py`, `helpers.py`, `agent.py`, `world.json`), đối chiếu trace `T-002@55`, viết nháp hai nhánh `write_gate` và biên soạn bảng B2/B7.1; đã trực tiếp chạy kiểm tra lại bằng `lab10.trace` và `unittest` trên máy.
 
 ### Bằng chứng
@@ -153,7 +91,7 @@ Kỹ sư cổng: B2; hỗ trợ B7.1 (kiểm quyền lợi hoàn, căn cứ ghi 
 ### Exit ticket
 
 - **Một điều học được:** Cổng kiểm tra trước khi ghi (`write_gate`) đối chiếu trực tiếp với nguồn sự thật (tracking DB + chính sách hiệu lực) quan trọng hơn việc sửa prompt, vì cùng một ticket (`T-002`), model có thể đúng ở `seed 11` nhưng tự tin sai ở `seed 55` và gây lỗi chìm cho cả kế toán lẫn hãng vận chuyển.
-- **Một điều còn chưa chắc:** Hai nhánh `write_gate` vòng 1 đã chặn hoàn sai và lỗi hãng oan dựa trên DB, nhưng chưa biết ở vòng 2 sự cố có đến từ nhánh khác như dữ liệu đầu vào/phiên bản chính sách/người nhận hay hàng chờ vận hành không — cần đối chiếu thêm sau khi làm B6 với nhóm và nhận thẻ sự cố ở phút 125.
+- **Một điều còn chưa chắc:** Hai nhánh `write_gate` vòng 1 đã chặn hoàn sai và lỗi hãng oan dựa trên DB, nhưng kết quả S8 trong mô phỏng chưa chứng minh DB quyền luôn cập nhật kịp thời hoặc nhiều worker không ghi đồng thời; cần xác minh trước pilot thật.
 
 ## NguyenTranAnhKhoi-2A202603422
 
@@ -167,7 +105,7 @@ Kỹ sư cổng: hỗ trợ B2; B7.2–B7.3 (tránh rò rỉ dữ liệu đánh 
 
 ### Bằng chứng
 
-Commit `487f7e7`; B7.2–B7.3; xác minh tích hợp cuối vòng1 ở `R-base-after-20261118-163822-3cce15`. Monitor mới có bằng chứng chung ở C8, grade `R-S8-grade-20261118-172906-726304`; không quy tác giả cá nhân cho phần AI làm.
+Commit `487f7e7`; B7.2–B7.3; xác minh tích hợp cuối vòng1 ở `R-base-after-20261118-163822-3cce15`. Monitor mới có bằng chứng chung ở C8, grade cuối `R-S8-grade-20261118-174256-726304`; không quy tác giả cá nhân cho phần AI làm.
 
 ### Exit ticket
 
@@ -185,7 +123,7 @@ Vòng 1 (đã làm):
 - **Phiếu A · rà soát sau khi ký**: kiểm lại các phép tính ở A4 (106/110 = 0,9636 ≥ 0,96; 20/22 = 0,909 ≥ 0,90; ROI 2.000/8.000 = 0,25 tương đương trần 8.000đ/ticket; escalation 0,30 × 10.000đ ≈ 3.000đ/ticket) và câu 1.5 so với đề; điền A5 (ký `2026-11-18T15:44:18`, commit `19f0edf` đã có trên `origin/main`, `lab10.criteria verify` → ok) và dòng "Bàn". Không sửa nội dung A1–A4 đã viết trước khi ký.
 - **B3 · Bản đồ dữ liệu**: người dùng trực tiếp và bên thứ ba, 4 lệnh ghi, các bảng trợ lý đọc; tách **nguồn sự thật** (`promised_date`, `delivered_date`, `delay_cause`, phí/giá trị đơn, ngày hiệu lực chính sách, `approvals`, sổ cái) khỏi **bản sao** (`refund_status` làm mới ban đêm, cờ `index_active`, số ngày khách tự khai); các định dạng dễ sai (`delivered_date: null`, đơn nhiều kiện `O-1013`, đơn không tồn tại, đơn quà).
 - **Ví dụ drift**: REFUND-v3 → v4 ngày 2026-12-01 (trợ lý chọn chính sách theo `index_active` chứ không theo ngày). Đây là **quan hệ vào–ra đổi**: cùng đơn trễ 2 ngày đổi từ từ chối sang hoàn 20.000đ; FORCE_MAJEURE không còn ghi lỗi hãng; `auto_limit` 200.000 → 100.000đ. Chỉ ra các ngưỡng đã ký bị ảnh hưởng và đề xuất chỉ số `policy_mismatch` (không cần nhãn).
-- **B7.4 + `config/operating_gates.json` mục `business`**: `daily_refund_cap_vnd` 1.500.000 (hoàn tự động ≈ 453.000đ/ngày × 3 cao điểm, chừa 500.000đ dưới ngân sách Finance 2.000.000đ); `cost_budget_per_ticket_vnd` 1.500 (= trần Ops/Finance); `pilot_scope` all (mọi kho rẻ hơn làm tay, lỗi không gắn kho); `roi_min` 0,25 (= tiêu chí đã ký, tương đương ≤ 8.000đ/ticket). Đã thử trên bộ nền: không ca mới hỏng, không vượt trần, 13 test OK.
+- **B7.4 + `config/operating_gates.json` mục `business`**: `daily_refund_cap_vnd` 1.500.000 (hoàn tự động ≈ 453.000đ/ngày × 3 cao điểm, chừa 500.000đ dưới ngân sách Finance 2.000.000đ); `cost_budget_per_ticket_vnd` 1.500 (= trần Ops/Finance); `pilot_scope` all (các kho xác định rẻ hơn làm tay trong thử nghiệm; nhóm không xác định `?` vẫn tốn 10.359đ/ticket, không che phân khúc này); `roi_min` 0,25 (= tiêu chí đã ký, tương đương ≤ 8.000đ/ticket). Đã thử trên bộ nền: không ca mới hỏng, không vượt trần, 13 test OK.
 - **B8 · Dự thảo căn cứ quyết định v1**: điền các ô đã có bằng chứng, đề xuất **Cải tiến thêm** theo `decision_rule` đã ký, kèm cây quyết định A–D để cả nhóm chốt khi có mốc prepared.
 - Có dùng AI (Claude Code) để đọc dữ liệu/code lab, tính các con số, chạy eval/test và soạn nháp B3, B7.4, B8; Hưng rà lại số liệu với `data/world.json` và report.
 
@@ -194,7 +132,7 @@ Cập nhật: vòng 2 đã có C5/C7/C12 trong hồ sơ chung, v1 đã chốt; n
 ### Bằng chứng
 
 - Config: `config/operating_gates.json` → `business` (4 khoá); nguồn số: `data/world.json` → `ops_limits` (`daily_auto_refund_budget_vnd`, `max_llm_cost_per_ticket_vnd`), `ops_facts` (`manual_cost_per_ticket_vnd`, `review_cost_per_ticket_vnd`, `review_capacity_per_reviewer_per_hour`, `llm_cost`), `policies[]` (REFUND-v3/v4), `orders[].parcels`, `approvals`; `data/tickets.jsonl` (tổng hoàn đúng 683.000đ/ngày).
-- Lần chạy thử cổng business: `R-base-after-20261118-161730-6f4f66` (nhật ký trên máy của Hưng). Report so sánh: `R-base-before-20261118-154608-bde05c`.
+- Lần chạy thử cổng business: `R-base-after-20261118-161730-6f4f66` (file gốc bị xóa nhầm, không khôi phục được theo xác nhận của trưởng nhóm; không còn artifact để đối chiếu độc lập). Report so sánh: `R-base-before-20261118-154608-bde05c`.
 - Mục phiếu: Phiếu B B3, B7.4, B8 (dự thảo). Mã commit vòng1 `aed304f`.
 
 ### Exit ticket
@@ -211,7 +149,7 @@ Vận hành và pháp lý: rà soát mục tiêu Oanh/Hạnh và telemetry Phi�
 
 Vòng 1 (đã làm):
 - **B4 · HAZOP vòng 1** trên `issue_refund`: 5 dòng kỹ thuật (WRONG thấy trên trace `T-002@55`; INVALID chính sách/phê duyệt, INCOMPLETE đơn chưa giao/nhiều kiện, PERTURBED `directive` hoàn toàn bộ đơn, INCAPABLE LLM `fail_open` — các nhánh chưa thấy trên trace) và 4 dòng ngoài kỹ thuật (dữ liệu gửi bên thứ ba, người duyệt, ngân sách, người đứng tên duyệt).
-- **B5 · Checklist 9 nhóm việc lần 1**: mỗi dòng có PIC tên người; cả 9 dòng ghi **Chưa** vì chưa có guard, `business`, B2/B3, monitor mới và mốc prepared.
+- **B5 · Checklist 9 nhóm việc lần 1**: mỗi dòng có PIC tên người; bản Hoàng ban đầu ghi **Chưa**; Phiếu B đã được nhóm cập nhật theo bằng chứng tích hợp trước chốt v1. Trạng thái vòng 2 hiện tại xem C11.
 - **Config `operations` + `legal`**: PIC `NV-TUNG`, approver `NV-HANH`, 1 người trực, 6 ca/giờ, chờ tối đa 60 phút, 6 điều kiện dừng, kênh báo tin, `decision_note: true`, kiểm mẫu 10%; chặn 7 trường PII gửi hãng; ghi lỗi hãng phải có nguyên nhân trong tracking.
 - **B7.5 · Runbook 1–3** (người chịu trách nhiệm, 7 tín hiệu vàng/đỏ, cách dừng, thời hạn dừng 15 phút, điều kiện bật lại) và **B7.6 · Giờ cao điểm**, khớp config.
 - Có dùng AI (Claude Code) để đọc code/dữ liệu lab, chạy eval/trace và soạn nháp B4, B5, B7.5–B7.6, config; Hoàng rà lại các con số với report trước khi nộp.

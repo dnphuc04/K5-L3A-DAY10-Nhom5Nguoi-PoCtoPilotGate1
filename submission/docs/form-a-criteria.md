@@ -164,3 +164,4 @@ git add config/acceptance_criteria.json config/acceptance_criteria.lock && git c
 | Đã push lên `origin main` thành công? | **có**: `git branch -r --contains 19f0edf` → `origin/main`. Kiểm lại ngày 18/11/2026 (Nguyễn Việt Hưng): `python -m lab10.criteria verify` → `"ok": true`, hash hiện tại trùng hash đã ký; không commit nào sau `19f0edf` sửa `config/acceptance_criteria.json` hay `.lock` |
 
 Sau bước này **không sửa** `config/acceptance_criteria.json`, kể cả mở rồi lưu lại bằng trình soạn thảo tự định dạng.
+

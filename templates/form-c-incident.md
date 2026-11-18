@@ -32,8 +32,9 @@ Mỗi lệnh `lab10.eval` và `lab10.grade` tự ghi một dòng vào `runs/jour
 |---|---|---|---|---|---|---|---|---|
 | 1 | R-S8-prepared-20261118-164814-3cce15 (grade R-S8-grade-20261118-164813-3cce15) | S8 · prepared | Nhận S8, chưa sửa guard/monitor/config vòng 2; snapshot 518a9ba2 | 1,0 [1,0;1,0] | 1,0 | 0 · 0 · 0 | 0,1346 (review kể cả kiểm mẫu 0,2115) | Cổng vòng 1 xử lý 260/260 lượt đúng; không ùn, chi phí 2.952đ/ticket, ROI 2,39; grade tổng FAIL do integrity và chưa có monitor mới. |
 | 2 | R-S8-after-20261118-172855-726304 | S8 · after | Chỉ thêm hai monitor, giữ nguyên guard/config vòng 1 | 1,0 [1,0;1,0] | 1,0 | 0 · 0 · 0 | 0,1346 | Monitor approval_review_rate=0,096154; 0 ùn, 2.952đ/ticket, ROI 2,39. |
-| 3 | R-S8-after-20261118-172907-726304 (grade R-S8-grade-20261118-172906-726304) | S8 · after | Grade bản cuối, không thay đổi code so dòng 2 | 1,0 [1,0;1,0] | 1,0 | 0 · 0 · 0 | 0,1346 | Visible/regression/monitor/criteria đạt; integrity chưa đạt, không sửa bộ chấm. |
+| 3 | R-S8-after-20261118-172907-726304 (grade R-S8-grade-20261118-172906-726304) | S8 · after | Grade trước khôi phục byte gốc, không thay đổi code so dòng 2 | 1,0 [1,0;1,0] | 1,0 | 0 · 0 · 0 | 0,1346 | Visible/regression/monitor/criteria đạt; integrity chưa đạt, không sửa bộ chấm. |
 | 4 | R-base-after-20261118-172855-726304 | base · after | Kiểm hồi quy cùng code/config sau thêm monitor | 1,0 [1,0;1,0] | 1,0 | 0 · 0 · 0 | 0,2273 | 110/110, không ca mới hỏng; chi phí 4.456đ/ticket, ROI 1,24. |
+| 5 | R-S8-after-20261118-174257-726304 (grade R-S8-grade-20261118-174256-726304) | S8 · after | Khôi phục byte LF gốc và bổ sung file thẻ khớp manifest; giữ nguyên logic guard/monitor/config | 1,0 [1,0;1,0] | 1,0 | 0 · 0 · 0 | 0,1346 | PASS-VISIBLE; integrity/criteria/visible/regression/monitor đều đạt, hidden chưa chạy. |
 
 ---
 
@@ -50,7 +51,7 @@ python3 -m lab10.grade --incident Sx
 - Mã lần chạy grade: `R-S8-grade-20261118-164813-3cce15` · base: `R-S8-before-20261118-164814-3cce15` · prepared: `R-S8-prepared-20261118-164814-3cce15`. Report ở `runs/`; đây là lần chạy đầu sau nhận thẻ, chưa sửa guard/monitor/config vòng 2. Mốc after tự sinh cùng lần grade hiện giống prepared, chưa phải bằng chứng đã sửa vòng 2.
 - Cổng vòng 1 đỡ được: 52 ticket × 5 seed = 260 lượt; pass_rate từ 0,8654 [0,7692;0,9423] lên 1,0 [1,0;1,0], pass_k từ 0,8654 lên 1,0. Tổng hoàn sai trên 260 lượt từ 6.845.000đ xuống 0 (không nhầm với hoàn sai ngày tệ nhất base 1.369.000đ); lỗi hãng oan từ 35 xuống 0, PII vẫn 0. G1 chặn phê duyệt không đúng ticket/đơn/khách/ngày/hạn mức; config approver NV-HANH, decision_note=true và sampling=10% giúp trạng thái niềm tin đạt.
 - Kinh doanh/vận hành prepared: kiểm lại từ 100% xuống 10%; chờ lâu nhất 216 → 5 phút, ca ùn 36 → 0; chi phí 11.225 → 2.952đ/ticket (làm tay 10.000đ), ROI -2,45 → 2,39; một người 6 ca/giờ, độ phủ 100%. Không còn trần số nào vượt trong report. Tỷ lệ agent chuyển người 0,1346 khác review_rate=0,2115 (kể cả kiểm mẫu).
-- **Chưa được tuyên bố bài đạt:** grade tổng FAIL vì integrity và monitor. Chưa có metric mới ngoài escalation_rate. Chẩn đoán chỉ đọc cho integrity: 23 file hiện hữu không khớp hash bytes nhưng đều khớp MANIFEST sau khi chuyển CRLF về LF trong bộ nhớ; 28 đường dẫn còn thiếu thuộc các thẻ S1–S7, phù hợp việc Coach yêu cầu chỉ lấy S8. Không sửa MANIFEST/bộ chấm, không lấy thẻ khác để lấp lỗi; báo Coach xin hướng dẫn chính thức về line ending Windows và manifest dành cho một thẻ. Tiêu chí và snapshot vòng 1 vẫn nguyên.
+- **Trạng thái lịch sử tại lần grade đầu, trước bổ sung monitor và khôi phục byte gốc (không phải kết luận hiện tại):** grade tổng FAIL vì integrity và monitor. Chưa có metric mới ngoài escalation_rate. Chẩn đoán chỉ đọc cho integrity: 23 file hiện hữu không khớp hash bytes nhưng đều khớp MANIFEST sau khi chuyển CRLF về LF trong bộ nhớ; 28 đường dẫn còn thiếu thuộc các thẻ S1–S7, phù hợp việc Coach yêu cầu chỉ lấy S8. Không sửa MANIFEST/bộ chấm, không lấy thẻ khác để lấp lỗi; báo Coach xin hướng dẫn chính thức về line ending Windows và manifest dành cho một thẻ. Tiêu chí và snapshot vòng 1 vẫn nguyên.
 
 **Đối chiếu pre-mortem (bổ sung ở Phiếu C, không sửa B6 đã chốt):**
 
@@ -170,23 +171,23 @@ Tham chiếu base `R-S8-before-20261118-164814-3cce15`, prepared `R-S8-prepared-
 
 ```mermaid
 flowchart TD
- T["Thiệt hại tiền, trách nhiệm và hàng chờ"] --> O["HOẶC"]
- O --> A["Chi bằng phê duyệt không hợp lệ"]
- O --> B["Kiểm lại mọi quyết định"]
- A --> AA["VÀ: mã sai phạm vi hoặc hết hiệu lực"]
- AA --> AB["Không kiểm trước ghi: S8-01,02,06@11 base"]
- B --> BA["VÀ: mất tin, thiếu giải thích"]
- BA --> BB["Review 100%: staff_behavior, base"]
- B --> BC["Công suất 6 ca/giờ: chờ 216 phút, 36 ùn"]
- O --> C["Không có tín hiệu riêng về approval"]
- C --> CA["Prepared chưa có approval_review_rate"]
+ T["Thiệt hại tiền hoặc hàng chờ"] --> O["HOẶC"]
+ O --> A["Chi trái quyền: VÀ"]
+ A --> A1["Mã sai phạm vi hoặc hết hiệu lực: A-2801/02/06"]
+ A --> A2["Base không kiểm đủ trước ghi: S8-01/02/06@11"]
+ O --> B["Ùn hàng chờ: VÀ"]
+ B --> B1["Kiểm lại 100% vì mất tin, thiếu giải thích"]
+ B --> B2["52 ca/ngày, 6 ca/giờ: chờ 216 phút, 36 ùn"]
+ O --> C["Lỗi nguồn không được nhận biết: VÀ"]
+ C --> C1["Có mã approval sai: trace base"]
+ C --> C2["Prepared thiếu monitor riêng về approval"]
 ```
 
 | Lá / tầng | Spec hoặc điều kiện hệ thống | Giả định môi trường / bằng chứng |
 |---|---|---|
-| AA/AB: quyền hạn và hành động | Mọi điều kiện phê duyệt phải đúng trước chi | Không thể coi mã tồn tại là đủ: A-2801 used/sai ticket, A-2802 hết hạn, A-2806 revoked |
-| BA/BB/BC: con người, vận hành, kinh doanh | Hành động giải thích được, review không vượt SLA/công suất | Một người không thể duyệt tức thì mọi ca: base 52 review/ngày, 11.225đ/ticket, ROI -2,45 |
-| CA: giám sát | Phải phát hiện sự gia tăng ca bị giữ vì approval | Prepared chặn đúng nhưng chưa có monitor mới; nếu lỗi nguồn tăng, chỉ nhìn pass_rate offline sẽ bỏ lỡ |
+| A1/A2: quyền hạn và hành động | Mọi điều kiện phê duyệt phải đúng trước chi | Không thể coi mã tồn tại là đủ: A-2801 used/sai ticket, A-2802 hết hạn, A-2806 revoked |
+| B1/B2: con người, vận hành, kinh doanh | Hành động giải thích được, review không vượt SLA/công suất | Một người không thể duyệt tức thì mọi ca: base 52 review/ngày, 11.225đ/ticket, ROI -2,45 |
+| C1/C2: giám sát | Phải phát hiện sự gia tăng ca bị giữ vì approval | Prepared chặn đúng nhưng chưa có monitor mới; nếu lỗi nguồn tăng, chỉ nhìn pass_rate offline sẽ bỏ lỡ |
 
 ---
 
@@ -200,7 +201,7 @@ flowchart TD
 | B | Mất tin, kiểm lại 100%, tốn công | Config đã có từ vòng 1: NV-HANH, note=true, sampling=10%, 1 người/6 ca giờ; không đổi vòng 2 | Vận hành | Giảm gánh review theo mô hình staff_behavior; không phải bằng chứng lòng tin người thật | Review 100%→10%, ùn 36→0, chờ 216→5 phút |
 | C | Thiếu tín hiệu sự cố | **Thay đổi mới duy nhất của vòng 2:** monitors.py thêm approval_review_rate, human_recheck_rate | Phát hiện | Chỉ phát hiện/giảm thời gian phát hiện, không trực tiếp chặn tiền | R-S8-after-20261118-172855-726304; grade cuối monitor=true |
 
-Không thay model/prompt, không sửa data/grade/manifest, không nhận cổng vòng 1 là phần code mới vòng 2. Config giữ nguyên vì prepared đã đạt; không tăng nhân sự hay thu hẹp để làm đẹp kết quả.
+Không thay model/prompt hoặc logic bộ chấm/manifest, không nhận cổng vòng 1 là phần code mới vòng 2. Bước đóng gói sau đó khôi phục byte LF gốc và bổ sung thẻ để khớp hash như mục cập nhật kiểm toàn vẹn; không thay giá trị dữ liệu nghiệp vụ. Config giữ nguyên vì prepared đã đạt; không tăng nhân sự hay thu hẹp để làm đẹp kết quả.
 
 ---
 
@@ -225,24 +226,26 @@ Không thay model/prompt, không sửa data/grade/manifest, không nhận cổng
 
 ## C9 · Câu 3.7 · Fault tree sau sửa
 
-Report `R-S8-grade-20261118-172906-726304`, mốc after `R-S8-after-20261118-172907-726304`.
+Report cuối `R-S8-grade-20261118-174256-726304`, mốc after `R-S8-after-20261118-174257-726304`.
 
 ```mermaid
 flowchart TD
  T["Thiệt hại còn có thể xảy ra"] --> O["HOẶC"]
- O --> A["Approval sai VÀ G1 không chặn"]
- A --> AA["G1 từ vòng 1: snapshot 518a9ba2"]
- O --> B["Review quá tải VÀ quy trình không can thiệp"]
- B --> BA["Config tin cậy và SLA: chờ tối đa 5 phút trên S8"]
- O --> C["Nguồn lỗi tăng VÀ tín hiệu không được xử lý"]
- C --> CA["Mới: approval_review_rate, human_recheck_rate"]
- O --> D["DB quyền sai/chậm hoặc worker ghi đồng thời"]
+ O --> A["Chi trái quyền: VÀ"]
+ A --> A1["Nguồn quyền sai hoặc thay đổi giữa kiểm và ghi"]
+ A --> A2["G1 không thấy thay đổi đó; chưa thử đồng thời"]
+ O --> B["Ùn hàng chờ: VÀ"]
+ B --> B1["Burst hoặc người duyệt vắng; chưa đo thật"]
+ B --> B2["Dự phòng không kịp; chưa diễn tập runbook"]
+ O --> C["Phản ứng trễ: VÀ"]
+ C --> C1["Near miss tăng: approval_review_rate S8 0,096154"]
+ C --> C2["Mất log hoặc không xử lý cảnh báo; pipeline chưa triển khai"]
 ```
 
 | Nhánh | Gate / tầng | Kết quả | Còn hở |
 |---|---|---|---|
 | A | G1 guards.py / chặn | 0 tiền sai, 0 lỗi oan; không làm hỏng ca hợp lệ trong visible | DB approvals sai hoặc quyền đổi giữa kiểm và ghi; chưa chứng minh tính nguyên tử |
-| B | operations + runbook / vận hành | 1 người, review 10%, 0 ùn, ROI 2,39 | Người vắng, burst thật, giải thích không đủ; staff_behavior là mock |
+| B | operations + runbook / vận hành | 1 người, kiểm mẫu 10% quyết định tự động; review_rate tổng 0,2115; 0 ùn, ROI 2,39 | Người vắng, burst thật, giải thích không đủ; staff_behavior là mock |
 | C | Hai monitor mới / phát hiện | Bắt tín hiệu khác nền; không tự chặn hay tự gửi cảnh báo | Pipeline log mất, reason đổi, người không phản ứng |
 | D | Quy trình đề xuất đối soát / giảm | Chưa thử production | Cần đo đồng bộ, locking/idempotency, phản hồi người thật ở Gate 2 |
 
@@ -257,7 +260,7 @@ flowchart TD
 | Nguồn approvals có nhiều mã lỗi dù gate đang chặn đúng | Có thể | Tăng ca duyệt, mất tin | Đồng Ngọc Phúc | approval_review_rate >0; >=5%/20 ticket cảnh báo đề xuất | Hạnh rà mã, audit nguồn, không tự nới quyền; giữ ca bị chặn ở người | Chưa mở rộng khi tăng bất thường chưa giải thích | MEASURE / MANAGE |
 | Nhân viên quay lại kiểm tay hết hoặc người duyệt vắng | Có thể | Ùn và ROI âm | Nguyễn Huy Hoàng | human_recheck_rate tăng kèm queue_wait_max_min>=30; queue_stuck>=1 đỏ | Gọi dự phòng có tên, thu hẹp nếu không giữ SLA; xác nhận người trước pilot | Cải tiến thêm nếu chưa có nhân sự thực tế | MAP / MANAGE |
 | Chi phí nhóm khó cao hơn làm tay | Đã thấy ở nhóm ? nền | Mất hiệu quả | Nguyễn Việt Hưng | cost_per_ticket_vnd>8000 hoặc ROI<0,25; nhóm ? nền 10.359đ | Điều tra đầu vào thiếu, không che chi phí bằng loại khỏi report | Không mở rộng khi tổng kinh tế trượt | MEASURE |
-| Bộ chấm hash không phù hợp checkout Windows / nhận một thẻ | Đã thấy | Không qua điều kiện toàn vẹn dù nội dung gốc khớp | Đồng Ngọc Phúc | grade checks.integrity=false | Giữ report; báo Coach CRLF và 28 file thẻ khác; không sửa manifest | Giữ v2 Cải tiến thêm, không tuyên bố đã qua | GOVERN |
+| Sai byte do checkout Windows; phạm vi nhận thẻ khác manifest | Đã xảy ra; hash hiện đã đạt | Có thể tái phát lỗi đóng gói; cần giải thích việc tải đủ thẻ | Đồng Ngọc Phúc | Report cuối integrity=true, changed=[]; kiểm lại khi checkout | Giữ LF bằng .gitattributes, giữ report lỗi lịch sử; trình bày minh bạch với Coach việc tải đủ thẻ, chưa có xác nhận ngoại lệ | Không còn chặn integrity ở report cuối; không thay bảo đảm tuân thủ quy trình | GOVERN |
 | Thu hồi quyền chậm hoặc ghi đồng thời ngoài mock | Chưa định lượng | Chi trái quyền/hoàn trùng | Vũ Văn Hảo | wrongful_refund_vnd>0 trong audit/report là đỏ; monitor near miss chưa đo được TOCTOU | Xác minh giao dịch nguyên tử/idempotency và độ trễ đồng bộ trước Gate 2 | Chưa cho tiền thật nếu chưa chứng minh | MAP / MANAGE |
 
 ---
@@ -276,7 +279,7 @@ flowchart TD
 | 6 Chi phí | Xong bộ thấy | S8 2.952đ/ticket, ROI 2,39; nền 4.456đ, ROI 1,24 | Nguyễn Việt Hưng |
 | 7 Vận hành | Chưa diễn tập thực tế | Hai monitor mới và runbook; chưa có người dự phòng thật định danh | Nguyễn Huy Hoàng |
 | 8 Con người/pháp lý | Chưa xác nhận thật | Mô hình trust=đạt, kiểm mẫu10%; chưa có chữ ký người chịu trách nhiệm thật | Nguyễn Huy Hoàng |
-| 9 Quyết định | Có v2, còn điều kiện qua | C12 Cải tiến thêm; integrity=false không che giấu | Đồng Ngọc Phúc |
+| 9 Quyết định | Có v2, còn điều kiện qua | C12 Cải tiến thêm; integrity=true, còn xác minh vận hành và dữ liệu thật | Đồng Ngọc Phúc |
 
 ### Runbook 4 · Sau sự cố S8
 
@@ -307,21 +310,21 @@ flowchart TD
 | Mục | v2 |
 |---|---|
 | Commit ký / snapshot | 19f0edf / 518a9ba2; verify còn nguyên |
-| Ba mốc grade cuối | base R-S8-before-20261118-172907-726304; prepared R-S8-prepared-20261118-172907-726304; after R-S8-after-20261118-172907-726304 |
-| Report grade | R-S8-grade-20261118-172906-726304; tổng FAIL do integrity; criteria/visible/regression/monitor đều đạt; hidden chưa chạy |
-| Trần còn vượt | Không; mọi ngưỡng số đã ký đạt trên S8 và nền. Điều kiện toàn vẹn bài vẫn chưa đạt |
+| Ba mốc grade cuối | base R-S8-before-20261118-174257-726304; prepared R-S8-prepared-20261118-174257-726304; after R-S8-after-20261118-174257-726304 |
+| Report grade | R-S8-grade-20261118-174256-726304; PASS-VISIBLE; integrity/criteria/visible/regression/monitor đều đạt; hidden chưa chạy |
+| Trần còn vượt | Không; mọi ngưỡng số đã ký đạt trên S8 và nền. Điều kiện toàn vẹn đã đạt ở report cuối; còn thiếu xác minh môi trường production |
 | Kho/hãng xấu nhất | S8 mọi hãng/kho pass=1, tiền sai/lỗi oan/PII=0. DN chi phí cao nhất3.200đ/ticket, vẫn đạt. Nền nhóm ? có10.359đ/ticket, cần rà trước mở rộng; không đổi quyết định theo hướng nới |
-| Quyết định và thay đổi so v1 | Giữ Cải tiến thêm: v1 còn thiếu sự cố; nay sự cố đạt và có monitor, nhưng integrity và bằng chứng production còn thiếu |
+| Quyết định và thay đổi so v1 | Giữ Cải tiến thêm: v1 còn thiếu sự cố; nay sự cố đạt và có monitor, nhưng bằng chứng về DB quyền, ghi đồng thời, nhân sự và vận hành production còn thiếu |
 | Bằng chứng 1 | S8 base pass0,8654, tổng hoàn sai6.845.000đ/260trial,35 lỗi oan; prepared/after pass1, pass_k1, cả ba an toàn=0 |
 | Bằng chứng 2 | Kiểm lại100%→10%, ùn36→0, chờ216→5 phút; chi phí11.225→2.952đ/ticket, ROI-2,45→2,39; giữ1 người và phủ100% |
 | Bằng chứng 3 | Nền110/110,13 public tests đạt; monitor mới approval_review_rate nền0 vs S8 0,096154, human_recheck_rate 0,045455 vs0,076923; errors rỗng |
-| Khớp decision_rule | Cải tiến thêm có hạn và nguồn lực; không chọn Tiếp tục khi hard gate integrity chưa qua dù phần cuối report cho phép cân nhắc theo ngưỡng số. Không đánh đồng ĐỦ THÀNH PHẦN với đạt điểm |
+| Khớp decision_rule | Cải tiến thêm có hạn và nguồn lực; mọi ngưỡng số và integrity đã đạt, nhưng cần kiểm giả định môi trường và quy trình người thật trước pilot; report cho phép cân nhắc Tiếp tục, không bắt buộc chọn Tiếp tục. Không đánh đồng ĐỦ THÀNH PHẦN với đạt điểm |
 | Thu hẹp / Dừng | Không áp dụng; không có căn cứ cắt kho/tăng người vô cớ hoặc dừng hẳn hướng giải quyết |
-| Việc trước quyết định lại | Nhận hướng dẫn Coach về CRLF và manifest một thẻ, không sửa grader; xác nhận nhân sự/quy trình, audit nguồn và đo thử production an toàn; sửa đúng chỗ nếu có lỗi mới |
+| Việc trước quyết định lại | Xác nhận nhân sự/quy trình, audit nguồn quyền và đo thử production an toàn; giải thích minh bạch việc tải đủ thẻ với Coach, không sửa grader; sửa đúng chỗ nếu có lỗi mới |
 | Hạn / PIC | Trước19/11/2026 GMT+7 và trước pilot thật; Đồng Ngọc Phúc chịu tích hợp, Hưng kinh tế, Hoàng vận hành, Hảo quyền hạn, Khôi theo dõi |
 | Chữ ký | Chưa ghi nhận chữ ký thực tế; trưởng nhóm rà lại nội dung trước nộp, không giả chữ ký người khác |
 
-**Chỉ ở v2:** prepared đã đỡ toàn bộ visible trước sửa vòng2; phần mới là quan sát/giám sát, không phải sửa lại tiền. Thử mock chưa đo TOCTOU, burst, chất lượng DB và lòng tin người thật. Report nói được cân nhắc Tiếp tục theo các trần số; nhóm vẫn giữ quyết định thận trọng vì integrity=false.
+**Chỉ ở v2:** prepared đã đỡ toàn bộ visible trước sửa vòng2; phần mới là quan sát/giám sát, không phải sửa lại tiền. Thử mock chưa đo TOCTOU, burst, chất lượng DB và lòng tin người thật. Report nói được cân nhắc Tiếp tục theo các trần số; nhóm vẫn giữ Cải tiến thêm để xác minh các giả định production; integrity không còn là lý do chặn.
 
 **Ba dòng bắt buộc** (chép nguyên vào submission.json):
 1. Giả định DB phê duyệt cập nhật kịp thời quyền cấp/thu hồi và người duyệt có thể hiểu chứng cứ để chấp nhận kiểm mẫu10%; thực tế đồng bộ chậm hoặc người duyệt vắng có thể làm giả định sai.
