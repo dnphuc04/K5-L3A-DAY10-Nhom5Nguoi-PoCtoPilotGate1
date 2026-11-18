@@ -29,7 +29,7 @@ AI đã hỗ trợ hoàn thiện Phiếu C C2–C12, hai monitor, quyết địn
 - V2: **Cải tiến thêm**, grade `R-S8-grade-20261118-172906-726304`: visible/criteria/regression/monitor đạt, integrity chưa đạt; hidden chưa chạy.
 - Sau: S8 260/260 đúng, nền110/110, 13 public tests đạt, không hoàn sai/lỗi oan/PII; S8 0 ùn,2.952đ/ticket,ROI2,39. Hai monitor đã thêm; guards/config không đổi so prepared.
 - Xác nhận cá nhân: ngày 18/11/2026, trưởng nhóm Đồng Ngọc Phúc thông báo cả nhóm đã tự rà soát và xác nhận các mục cá nhân cùng exit ticket. Đây là xác nhận nội dung, không thay chữ ký tay, phê duyệt pilot hoặc việc nộp LMS.
-- Còn thiếu xác nhận/bằng chứng: hướng dẫn Coach về integrity, report gốc trên máy Hưng/Hoàng và việc mỗi người nộp LMS.
+- Còn thiếu xác nhận/bằng chứng: hướng dẫn Coach về integrity, report cũ của Hưng đã xóa nhầm, không khôi phục được theo xác nhận của trưởng nhóm (hai report của Hoàng đã được bổ sung) và việc mỗi người nộp LMS.
 
 ## Phân công và thứ tự phối hợp
 
@@ -233,3 +233,7 @@ Cập nhật: phần vòng 2 và hồ sơ đã hoàn thiện, check_submission b
 ### Cập nhật integrity theo yêu cầu trưởng nhóm
 
 Đã tải đủ file thẻ gốc S1–S8 theo yêu cầu trực tiếp của Phúc để khớp manifest; không dùng các thẻ khác để giải S8. Việc này khác hướng dẫn ban đầu chỉ nhận một thẻ; chưa có xác nhận ngoại lệ của Coach. Khôi phục đúng byte LF của file khóa sau khi kiểm hash, không sửa logic/manifest/tiêu chí/snapshot. Grade `R-S8-grade-20261118-174256-726304` báo PASS-VISIBLE, mọi kiểm nhìn thấy đạt, test ẩn chưa chạy. Kết quả FAIL trong phần lịch sử không phải trạng thái mới nhất. V2 giữ Cải tiến thêm để xác minh điều kiện pilot thực tế.
+
+## Bổ sung chứng cứ gốc của Hoàng · 18/11/2026
+
+Đã nhận hai thư mục lần chạy `R-base-after-20261118-160422-0cb2ae` và `R-base-after-20261118-160436-2a7275` từ `C:\Users\ThinkBook\Downloads\runs`. Giữ nguyên report.json và toàn bộ traces/ trong `submission/runs/original-evidence/`; nhật ký nguồn lưu tại `hoang-journal.jsonl`, đồng thời bổ sung các dòng chưa có vào nhật ký chung. File sao chép được kiểm SHA-256 khớp nguồn; số chi phí/ROI khớp Phiếu B. Phần chứng cứ của Hoàng không còn thiếu; Theo xác nhận của trưởng nhóm ngày 18/11/2026, Hưng đã lỡ xóa file gốc của lần chạy `R-base-after-20261118-161730-6f4f66` trong quá trình làm bài và không khôi phục được. Số liệu trong Phiếu B được giữ nguyên nhưng thiếu report gốc để đối chiếu; ghi nhận rõ giới hạn bằng chứng này, không tạo lại report mang mã cũ.
