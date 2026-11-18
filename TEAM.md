@@ -30,7 +30,7 @@ AI đã hỗ trợ hoàn thiện Phiếu C C2–C12, hai monitor, quyết địn
 - Sau: S8 260/260 đúng, nền110/110, 13 public tests đạt, không hoàn sai/lỗi oan/PII; S8 0 ùn,2.952đ/ticket,ROI2,39. Hai monitor đã thêm; guards/config không đổi so prepared.
 - Xác nhận cá nhân: ngày 18/11/2026, trưởng nhóm Đồng Ngọc Phúc thông báo cả nhóm đã tự rà soát và xác nhận các mục cá nhân cùng exit ticket. Đây là xác nhận nội dung, không thay chữ ký tay, phê duyệt pilot hoặc việc nộp LMS.
 - Chứng cứ: hai report gốc của Hoàng đã được bổ sung. Theo xác nhận của trưởng nhóm, report cũ của Hưng đã bị xóa nhầm và không khôi phục được; số liệu trong Phiếu B còn thiếu file gốc để đối chiếu.
-- Cần xác nhận ngoài bộ kiểm tự động: Coach chưa xác nhận ngoại lệ cho việc tải đủ thẻ để khớp manifest; từng thành viên cần tự nộp link repo lên LMS. Integrity hiện đã đạt ở report mới nhất.
+- Cần xác nhận ngoài bộ kiểm tự động: Coach xác nhận ngoại lệ cho việc tải đủ thẻ để khớp manifest; từng thành viên cần tự nộp link repo lên LMS. Integrity hiện đã đạt ở report mới nhất.
 
 ## Phân công và kết quả bàn giao
 
@@ -46,7 +46,7 @@ Bảng này ghi vai trò đã phân công; phần triển khai chung bằng AI v
 
 Vòng 1 và v1 đã chốt trước nhận S8. Grade đầu `R-S8-grade-20261118-164813-3cce15` được giữ làm lịch sử: prepared đã xử lý đúng S8 nhưng tổng FAIL vì integrity và thiếu monitor mới. Vòng 2 thêm hai monitor, giữ nguyên guards/config so prepared. Grade cuối và trạng thái hiện tại ghi phía trên; không dùng FAIL cũ làm kết luận hiện tại.
 
-Bài nộp đã gom report ba mốc, grade-report, nhật ký, code/config, ba phiếu và manifest. Kịch bản demo nằm ở `submission/docs/demo-s8.md`; chưa xác nhận đã demo hoặc đã nộp LMS. Nếu đổi code/config khi demo phải trả về bản v2, chạy grade và collect lại. Không sửa tiêu chí đã ký, snapshot vòng 1, Phiếu B/v1 hoặc report gốc. Mỗi người tự nộp link repo trên LMS.
+Bài nộp đã gom report ba mốc, grade-report, nhật ký, code/config, ba phiếu và manifest. Kịch bản demo nằm ở `submission/docs/demo-s8.md`. Nếu đổi code/config khi demo phải trả về bản v2, chạy grade và collect lại. Không sửa tiêu chí đã ký, snapshot vòng 1, Phiếu B/v1 hoặc report gốc. Mỗi người tự nộp link repo trên LMS.
 
 ## Cá nhân
 
