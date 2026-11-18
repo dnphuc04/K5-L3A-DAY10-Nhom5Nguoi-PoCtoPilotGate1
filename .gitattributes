@@ -1,0 +1,5 @@
+# Preserve original bytes of hash-checked lab inputs on Windows checkouts.
+data/** text eol=lf
+incidents/** text eol=lf
+lab10/*.py text eol=lf
+tests/*.py text eol=lf

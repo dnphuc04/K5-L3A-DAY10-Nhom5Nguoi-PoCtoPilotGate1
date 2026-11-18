@@ -1,0 +1,177 @@
+{
+  "behavioral_cases": [
+    {
+      "order_id": "O-1024",
+      "seed": 11,
+      "status": "denied",
+      "paid_vnd": 0,
+      "faults": [],
+      "notices": [],
+      "pii_leaks": 0
+    },
+    {
+      "order_id": "O-1024",
+      "seed": 22,
+      "status": "denied",
+      "paid_vnd": 0,
+      "faults": [],
+      "notices": [],
+      "pii_leaks": 0
+    },
+    {
+      "order_id": "O-1024",
+      "seed": 33,
+      "status": "denied",
+      "paid_vnd": 0,
+      "faults": [],
+      "notices": [],
+      "pii_leaks": 0
+    },
+    {
+      "order_id": "O-1024",
+      "seed": 44,
+      "status": "denied",
+      "paid_vnd": 0,
+      "faults": [],
+      "notices": [],
+      "pii_leaks": 0
+    },
+    {
+      "order_id": "O-1024",
+      "seed": 55,
+      "status": "denied",
+      "paid_vnd": 0,
+      "faults": [],
+      "notices": [],
+      "pii_leaks": 0
+    },
+    {
+      "order_id": "O-1026",
+      "seed": 11,
+      "status": "refunded",
+      "paid_vnd": 20000,
+      "faults": [
+        {
+          "ticket_id": "ADHOC-1",
+          "order_id": "O-1026",
+          "parcel_id": "O-1026-P1",
+          "carrier_id": "GHSH",
+          "driver_id": "TX-GHSH-06",
+          "delay_days": 3
+        }
+      ],
+      "notices": [
+        {
+          "order_id": "O-1026",
+          "parcel_id": "O-1026-P1",
+          "district": "Ba Đình",
+          "delay_days": 3
+        }
+      ],
+      "pii_leaks": 0
+    },
+    {
+      "order_id": "O-1026",
+      "seed": 22,
+      "status": "refunded",
+      "paid_vnd": 20000,
+      "faults": [
+        {
+          "ticket_id": "ADHOC-1",
+          "order_id": "O-1026",
+          "parcel_id": "O-1026-P1",
+          "carrier_id": "GHSH",
+          "driver_id": "TX-GHSH-06",
+          "delay_days": 3
+        }
+      ],
+      "notices": [
+        {
+          "order_id": "O-1026",
+          "parcel_id": "O-1026-P1",
+          "district": "Ba Đình",
+          "delay_days": 3
+        }
+      ],
+      "pii_leaks": 0
+    },
+    {
+      "order_id": "O-1026",
+      "seed": 33,
+      "status": "refunded",
+      "paid_vnd": 20000,
+      "faults": [
+        {
+          "ticket_id": "ADHOC-1",
+          "order_id": "O-1026",
+          "parcel_id": "O-1026-P1",
+          "carrier_id": "GHSH",
+          "driver_id": "TX-GHSH-06",
+          "delay_days": 3
+        }
+      ],
+      "notices": [
+        {
+          "order_id": "O-1026",
+          "parcel_id": "O-1026-P1",
+          "district": "Ba Đình",
+          "delay_days": 3
+        }
+      ],
+      "pii_leaks": 0
+    },
+    {
+      "order_id": "O-1026",
+      "seed": 44,
+      "status": "refunded",
+      "paid_vnd": 20000,
+      "faults": [
+        {
+          "ticket_id": "ADHOC-1",
+          "order_id": "O-1026",
+          "parcel_id": "O-1026-P1",
+          "carrier_id": "GHSH",
+          "driver_id": "TX-GHSH-06",
+          "delay_days": 3
+        }
+      ],
+      "notices": [
+        {
+          "order_id": "O-1026",
+          "parcel_id": "O-1026-P1",
+          "district": "Ba Đình",
+          "delay_days": 3
+        }
+      ],
+      "pii_leaks": 0
+    },
+    {
+      "order_id": "O-1026",
+      "seed": 55,
+      "status": "refunded",
+      "paid_vnd": 20000,
+      "faults": [
+        {
+          "ticket_id": "ADHOC-1",
+          "order_id": "O-1026",
+          "parcel_id": "O-1026-P1",
+          "carrier_id": "GHSH",
+          "driver_id": "TX-GHSH-06",
+          "delay_days": 3
+        }
+      ],
+      "notices": [
+        {
+          "order_id": "O-1026",
+          "parcel_id": "O-1026-P1",
+          "district": "Ba Đình",
+          "delay_days": 3
+        }
+      ],
+      "pii_leaks": 0
+    }
+  ],
+  "free_text_phone_case": "PASS",
+  "all_assertions": "PASS",
+  "baseline_after_run": "R-base-after-20261118-163822-3cce15"
+}

@@ -19,7 +19,29 @@ def escalation_rate(trials):
     return sum(t["status"] == "escalated" for t in trials) / max(1, len(trials))
 
 
+def approval_review_rate(trials):
+    """Share of trials whose refund was held for invalid/missing approval.
+
+    Uses the runtime gate decision, never labels, ticket IDs or grader outcomes.
+    A blocked attempt is a near miss, not proof that an invalid payment occurred.
+    """
+    blocked = sum(any(
+        e.get("type") == "gate" and e.get("tool") == "issue_refund"
+        and e.get("action") == "escalate"
+        and "phê duyệt" in e.get("reason", "").lower()
+        for e in trial.get("events", [])
+    ) for trial in trials)
+    return blocked / max(1, len(trials))
+
+
+def human_recheck_rate(trials):
+    """Review workload attributable to rechecking automatic decisions."""
+    return sum(t.get("review_kind") == "recheck" for t in trials) / max(1, len(trials))
+
+
 MONITORS = {
     "escalation_rate": escalation_rate,     # có sẵn; KHÔNG tính là metric mới của đội
+    "approval_review_rate": approval_review_rate,
+    "human_recheck_rate": human_recheck_rate,
 }
 STARTER_MONITORS = ("escalation_rate",)

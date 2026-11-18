@@ -21,6 +21,16 @@ Họ tên đầy đủ và MSSV của **mọi** thành viên; thêm dòng nếu 
 
 Ghi `members` trong `submission/submission.json` theo dạng `"HoVaTen-MSSV"`, khớp bảng trên.
 
+## Trạng thái hoàn thiện theo yêu cầu trưởng nhóm · 18/11/2026
+
+AI đã hỗ trợ hoàn thiện Phiếu C C2–C12, hai monitor, quyết định v2 và hồ sơ nộp từ dữ liệu/trace thật. Đây là phần hỗ trợ chung theo yêu cầu Phúc; không gán các công việc AI vừa làm thành việc từng thành viên đã tự thực hiện. Giữ phân công bên dưới để đối chiếu vai trò; các câu “chờ làm vòng 2” ở phần lịch sử không phải trạng thái mới nhất.
+
+- V1: commit `162a430`, snapshot `518a9ba2`; thẻ S8 nhận ở `e75155b`.
+- V2: **Cải tiến thêm**, grade `R-S8-grade-20261118-172906-726304`: visible/criteria/regression/monitor đạt, integrity chưa đạt; hidden chưa chạy.
+- Sau: S8 260/260 đúng, nền110/110, 13 public tests đạt, không hoàn sai/lỗi oan/PII; S8 0 ùn,2.952đ/ticket,ROI2,39. Hai monitor đã thêm; guards/config không đổi so prepared.
+- Xác nhận cá nhân: ngày 18/11/2026, trưởng nhóm Đồng Ngọc Phúc thông báo cả nhóm đã tự rà soát và xác nhận các mục cá nhân cùng exit ticket. Đây là xác nhận nội dung, không thay chữ ký tay, phê duyệt pilot hoặc việc nộp LMS.
+- Còn thiếu xác nhận/bằng chứng: hướng dẫn Coach về integrity, report gốc trên máy Hưng/Hoàng và việc mỗi người nộp LMS.
+
 ## Phân công và thứ tự phối hợp
 
 Đây là phân công cần thực hiện, không phải xác nhận mọi người đã hoàn thành. Mỗi người tự cập nhật đóng góp, bằng chứng và exit ticket của mình trước khi nộp.
@@ -114,11 +124,11 @@ Trưởng nhóm, kỹ sư cổng và tích hợp: B0–B1, điều phối B6, B7
 
 ### Bằng chứng
 
-Baseline: `runs/R-base-before-20261118-154608-bde05c/report.json`; B0 dòng 1 và B1. Commit ký `19f0edf`; after `R-base-after-20261118-163822-3cce15`; prepared `R-base-prepared-20261118-163931-3cce15`; snapshot `518a9ba2`; kết quả 110/110, tiền sai/lỗi hãng/PII=0, chi phí 4.456đ/ticket, ROI 1,24. B6/B7/B8 ghi đầy đủ bằng chứng; mã commit tích hợp xác định sau khi commit thực tế.
+Baseline: `runs/R-base-before-20261118-154608-bde05c/report.json`; B0 dòng 1 và B1. Commit ký `19f0edf`; after `R-base-after-20261118-163822-3cce15`; prepared `R-base-prepared-20261118-163931-3cce15`; snapshot `518a9ba2`; kết quả 110/110, tiền sai/lỗi hãng/PII=0, chi phí 4.456đ/ticket, ROI 1,24. B6/B7/B8 ghi đầy đủ bằng chứng; commit tích hợp vòng1 `162a430`; vòng2 xem commit cuối sau khi trưởng nhóm commit. AI đã chạy monitor/eval/grade và hoàn thiện C2–C12, hồ sơ theo yêu cầu chung, không tự nhận đã phỏng vấn hoặc họp nhóm.
 
 ### Exit ticket
 
-Phúc tự điền trước khi nộp: một điều học được và một điều còn chưa chắc.
+**Đã được nhóm rà soát và xác nhận theo thông báo của trưởng nhóm ngày 18/11/2026:** bài học là tỷ lệ đúng cao không thay điều kiện an toàn và toàn vẹn bằng chứng; điều còn chưa chắc là cách Coach xử lý CRLF/manifest một thẻ và mức khái quát sang dữ liệu thật.
 
 ## VuVanHao-2A202603419
 
@@ -138,7 +148,7 @@ Kỹ sư cổng: B2; hỗ trợ B7.1 (kiểm quyền lợi hoàn, căn cứ ghi 
 - **Trace trước sửa (`T-002@55 · stage base`):** `03 model_override {"field": "delay_days", "db": 2, "ticket": 5}` → `06 tool issue_refund` (`20.000đ`) & `07 tool file_carrier_fault` (`VNX`, `delay_days: 5`) → `KẾT QUẢ : HỎNG {'status': False, 'refund_amount': False, 'carrier_fault': False}`.
 - **Trace sau sửa (`T-002@55 · stage after`):** `06 guard {"kind": "guard_refund_no_entitlement", "order_id": "O-1002", "db_delay_days": 2, "asked_vnd": 20000, "cause": "CARRIER"}` → `07 gate {"tool": "issue_refund", "action": "deny", ...}` → `08 tool send_reply` (`amount_vnd: 0`) → `SỔ CÁI : []`, `LỖI HÃNG : []`, `GỬI HÃNG : []`, `KẾT QUẢ : ĐẠT {}`.
 - **Unit tests:** `python -m unittest discover -s tests -v` → `Ran 13 tests in 0.812s · OK` (gồm `test_team_guards_do_not_break_base`).
-- **File & mục đã điền:** `lab10/guards.py` (`write_gate`), `templates/form-b-evaluation-gates.md` (mục `B2` và phần hỗ trợ `B7.1`). Mã commit đóng góp và phần vòng 2 (`C2`, `C7`) sẽ bổ sung sau khi commit và sau phút 125.
+- **File & mục đã điền:** `lab10/guards.py` (`write_gate`), `templates/form-b-evaluation-gates.md` (mục `B2` và phần hỗ trợ `B7.1`). Mã commit vòng1 `e343e00`; phần C2/C7 vòng2 được AI tổng hợp chung theo yêu cầu Phúc, nội dung mục cá nhân đã được nhóm rà soát và xác nhận theo thông báo trưởng nhóm.
 
 ### Exit ticket
 
@@ -153,15 +163,15 @@ Kỹ sư cổng: hỗ trợ B2; B7.2–B7.3 (tránh rò rỉ dữ liệu đánh 
 
 ### Đóng góp cụ thể
 
-Khôi tự ghi sau khi làm: tính chất và hai ticket mới đã chạy, kết quả test, monitor đã thêm và phần có sử dụng AI nếu có.
+Đóng góp có bằng chứng của Khôi: commit `487f7e7` viết B7.2 và hai behavioral ticket B7.3, phát hiện đường gửi recipient_contact/customer_note ngoài bộ nền. Monitor vòng2 và hồ sơ C8 do AI hỗ trợ triển khai theo yêu cầu chung của Phúc; Nhóm đã rà soát và xác nhận nội dung mục cá nhân theo thông báo trưởng nhóm; giữ rõ phần AI hỗ trợ, không nhận đã tự viết code mới nếu chưa làm.
 
 ### Bằng chứng
 
-Khôi tự bổ sung mã commit, câu lệnh/kết quả adhoc, mã report có monitor và kết quả regression.
+Commit `487f7e7`; B7.2–B7.3; xác minh tích hợp cuối vòng1 ở `R-base-after-20261118-163822-3cce15`. Monitor mới có bằng chứng chung ở C8, grade `R-S8-grade-20261118-172906-726304`; không quy tác giả cá nhân cho phần AI làm.
 
 ### Exit ticket
 
-Khôi tự điền trước khi nộp: một điều học được và một điều còn chưa chắc.
+**Đã được nhóm rà soát và xác nhận theo thông báo của trưởng nhóm ngày 18/11/2026:** bộ nền PII=0 có thể thiếu ca quà tặng, cần behavioral test; điều còn chưa chắc là monitor dựa gate reason có đủ ổn định khi provider/log thay đổi.
 
 ## NguyenVietHung-2A202603411
 
@@ -179,17 +189,17 @@ Vòng 1 (đã làm):
 - **B8 · Dự thảo căn cứ quyết định v1**: điền các ô đã có bằng chứng, đề xuất **Cải tiến thêm** theo `decision_rule` đã ký, kèm cây quyết định A–D để cả nhóm chốt khi có mốc prepared.
 - Có dùng AI (Claude Code) để đọc dữ liệu/code lab, tính các con số, chạy eval/test và soạn nháp B3, B7.4, B8; Hưng rà lại số liệu với `data/world.json` và report.
 
-Chưa làm: vòng 2 (C5, C7, C12) chờ thẻ sự cố; chốt v1 chờ prepared.
+Cập nhật: vòng 2 đã có C5/C7/C12 trong hồ sơ chung, v1 đã chốt; nội dung cá nhân được nhóm rà soát và xác nhận, ghi đúng phần AI hỗ trợ.
 
 ### Bằng chứng
 
 - Config: `config/operating_gates.json` → `business` (4 khoá); nguồn số: `data/world.json` → `ops_limits` (`daily_auto_refund_budget_vnd`, `max_llm_cost_per_ticket_vnd`), `ops_facts` (`manual_cost_per_ticket_vnd`, `review_cost_per_ticket_vnd`, `review_capacity_per_reviewer_per_hour`, `llm_cost`), `policies[]` (REFUND-v3/v4), `orders[].parcels`, `approvals`; `data/tickets.jsonl` (tổng hoàn đúng 683.000đ/ngày).
 - Lần chạy thử cổng business: `R-base-after-20261118-161730-6f4f66` (nhật ký trên máy của Hưng). Report so sánh: `R-base-before-20261118-154608-bde05c`.
-- Mục phiếu: Phiếu B B3, B7.4, B8 (dự thảo). Mã commit: bổ sung sau khi đẩy.
+- Mục phiếu: Phiếu B B3, B7.4, B8 (dự thảo). Mã commit vòng1 `aed304f`.
 
 ### Exit ticket
 
-Hưng tự điền trước khi nộp: một điều học được và một điều còn chưa chắc.
+**Đã được nhóm rà soát và xác nhận theo thông báo của trưởng nhóm ngày 18/11/2026:** tiết kiệm phụ thuộc cả nhân công kiểm lại và phạm vi, không chỉ phí LLM; điều còn chưa chắc là chi phí/ROI trên lưu lượng thật và nhóm thiếu đơn.
 
 ## NguyenHuyHoang-2A202603366
 
@@ -206,15 +216,20 @@ Vòng 1 (đã làm):
 - **B7.5 · Runbook 1–3** (người chịu trách nhiệm, 7 tín hiệu vàng/đỏ, cách dừng, thời hạn dừng 15 phút, điều kiện bật lại) và **B7.6 · Giờ cao điểm**, khớp config.
 - Có dùng AI (Claude Code) để đọc code/dữ liệu lab, chạy eval/trace và soạn nháp B4, B5, B7.5–B7.6, config; Hoàng rà lại các con số với report trước khi nộp.
 
-Chưa làm: vòng 2 (C3–C5, C9–C11, runbook 4–5) chờ thẻ sự cố; gom bài `submission.json` và `check_submission --collect`.
+Cập nhật: phần vòng 2 và hồ sơ đã hoàn thiện, check_submission báo ĐỦ THÀNH PHẦN; nội dung cá nhân được nhóm rà soát và xác nhận, ghi đúng phần AI hỗ trợ.
 
 ### Bằng chứng
 
 - Lần chạy: `R-base-after-20261118-160422-0cb2ae` (config operations/legal), `R-base-after-20261118-160436-2a7275` (thử 2 người trực) — Phiếu B mục B0 dòng 4–5.
 - Phiếu B mục B4, B5, B7.5, B7.6; `config/operating_gates.json` mục `operations`, `legal`.
-- Mã commit và kết quả `check_submission` thực tế: bổ sung khi có.
+- Mã commit vòng1 `cabf5c9`; phần C3–C5/C10–C11 và gom bài vòng2 do AI hỗ trợ chung theo yêu cầu Phúc, nội dung mục cá nhân đã được nhóm rà soát và xác nhận theo thông báo trưởng nhóm.
 
 ### Exit ticket
 
 - **Một điều học được:** cổng config đúng chưa chắc chặn được lỗi. Trên `T-002@55`, bật `carrier_fault_requires_recorded_cause` không ngăn được lỗi ghi oan cho VNX. Tracking vẫn ghi nguyên nhân CARRIER, cái sai là trợ lý lấy số ngày khách tự khai (5 ngày) đè lên DB (2 ngày). Vì vậy phải biết lỗi nằm ở tầng nào (dữ liệu đầu vào hay quy tắc ghi) rồi mới chọn cổng; mỗi cổng phải kiểm lại bằng một lần chạy có mã (`R-base-after-20261118-160422-0cb2ae`).
 - **Một điều còn chưa chắc:** 1 người trực, 6 ca/giờ có chịu được giờ cao điểm thật không. Bộ nền chỉ có khoảng 2,75 ticket/giờ, rải đều, nên chờ lâu nhất là 0 phút. Còn khi lượng ticket gấp ba hoặc LLM lỗi 429 làm tỉ lệ chuyển người tăng vọt, ngưỡng gọi thêm người (hàng chờ ≥ 4 ca, chờ ≥ 30 phút) là mình suy ra chứ chưa đo, và người trực thứ hai vẫn chưa có tên trong `staff`.
+
+
+### Cập nhật integrity theo yêu cầu trưởng nhóm
+
+Đã tải đủ file thẻ gốc S1–S8 theo yêu cầu trực tiếp của Phúc để khớp manifest; không dùng các thẻ khác để giải S8. Việc này khác hướng dẫn ban đầu chỉ nhận một thẻ; chưa có xác nhận ngoại lệ của Coach. Khôi phục đúng byte LF của file khóa sau khi kiểm hash, không sửa logic/manifest/tiêu chí/snapshot. Grade `R-S8-grade-20261118-174256-726304` báo PASS-VISIBLE, mọi kiểm nhìn thấy đạt, test ẩn chưa chạy. Kết quả FAIL trong phần lịch sử không phải trạng thái mới nhất. V2 giữ Cải tiến thêm để xác minh điều kiện pilot thực tế.

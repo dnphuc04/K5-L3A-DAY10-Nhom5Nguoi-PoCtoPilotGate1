@@ -1,12 +1,18 @@
 {
-  "team": "",
-  "members": [],
-  "incident": "",
-  "decision_v1": "",
-  "decision_v2": "",
+  "team": "K5-L3A-DAY10-Nhom5Nguoi-PoCtoPilotGate1",
+  "members": [
+    "DongNgocPhuc-2A202603399",
+    "VuVanHao-2A202603419",
+    "NguyenTranAnhKhoi-2A202603422",
+    "NguyenVietHung-2A202603411",
+    "NguyenHuyHoang-2A202603366"
+  ],
+  "incident": "S8",
+  "decision_v1": "Cải tiến thêm",
+  "decision_v2": "Cải tiến thêm",
   "three_lines": {
-    "environment_assumption": "",
-    "reduce_or_prevent": "",
-    "measure_in_pilot": ""
+    "environment_assumption": "Giả định DB phê duyệt cập nhật kịp thời quyền cấp/thu hồi và người duyệt có thể hiểu chứng cứ để chấp nhận kiểm mẫu10%; thực tế đồng bộ chậm hoặc người duyệt vắng có thể làm giả định sai.",
+    "reduce_or_prevent": "G1 ngăn đường ghi hoàn trái phạm vi phê duyệt đã kiểm trong mô phỏng khi DB đúng; monitor chỉ giúp phát hiện near miss, còn nguy cơ DB sai, TOCTOU và lòng tin người thật nên toàn hệ thống chỉ giảm rủi ro, chưa bảo đảm không có tác hại.",
+    "measure_in_pilot": "Trước Gate2 phải đo lại quyền cấp/thu hồi và thời gian đồng bộ, kiểm toán tiền/approval, burst và công suất duyệt, chi phí/ROI theo kho, độ mất log và mức hiểu/đồng thuận kiểm mẫu của người thật; 260 trial mock không thay bằng chứng production."
   }
 }
