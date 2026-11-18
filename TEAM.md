@@ -25,7 +25,7 @@ Ghi `members` trong `submission/submission.json` theo dạng `"HoVaTen-MSSV"`, k
 
 Đây là phân công cần thực hiện, không phải xác nhận mọi người đã hoàn thành. Mỗi người tự cập nhật đóng góp, bằng chứng và exit ticket của mình trước khi nộp.
 
-### Việc làm ngay · Khối 2A (chưa sửa guard hoặc config vận hành)
+### Phân công vòng 1 đã qua · Khối 2A (lưu để đối chiếu đóng góp)
 
 | Người phụ trách | Câu / mục phiếu | Công việc cụ thể | Sản phẩm bàn giao |
 |---|---|---|---|
@@ -37,7 +37,7 @@ Ghi `members` trong `submission/submission.json` theo dạng `"HoVaTen-MSSV"`, k
 
 Sau khi có B2–B5, cả nhóm cùng làm B6: kỹ thuật, kinh doanh, con người/vận hành, pháp lý; chọn 2–3 nguyên nhân để biến thành cổng vòng 1.
 
-### Khối 2B · Cổng phòng ngừa và quyết định v1
+### Phân công vòng 1 đã qua · Khối 2B và quyết định v1
 
 | Người phụ trách | Câu / mục phiếu | Công việc và file |
 |---|---|---|
@@ -64,6 +64,33 @@ Phúc là người tích hợp config chung: Hưng và Hoàng chỉ sửa mục 
 **Cách phối hợp:** mỗi người sửa đúng mục phiếu được giao; Khôi sửa monitors, Hưng/Hoàng chỉ đề xuất config nếu có nguyên nhân cần đổi. Phúc tích hợp guards/config và chạy lần cuối. C6/C9 do cả nhóm cung cấp nhánh, Phúc tổng hợp. Giữ nguyên Phiếu B/v1. Chỉ hoàn thành C12/submission sau khi có monitor và report cuối; hiện chưa có quyết định v2.
 
 **Lệnh trace cho Hảo (thay ID bằng đúng ticket S8 cần dò):** `python -m lab10.trace --suite S8 --stage base --ticket S8-01 --seed 11`; so với cùng lệnh `--stage prepared`. Grade chung: `python -m lab10.grade --incident S8`.
+
+### Kế hoạch làm tiếp ngay · Hoàn thiện S8 trước, xử lý integrity riêng
+
+**Trạng thái xuất phát:** vòng 1 và v1 đã chốt; S8 đã được đánh giá lần đầu, C0–C1 đã có. Không chờ integrity mới làm phần phân tích/monitor/hồ sơ. Chưa chọn Tiếp tục khi điều kiện toàn vẹn chưa được giải quyết. Phân công dưới đây là việc phải làm tiếp, không xác nhận đã hoàn thành.
+
+| Người / thứ tự | Phần được giao chính | Việc cần làm và tiêu chí bàn giao |
+|---|---|---|
+| **Hảo · làm ngay** | **C2; đề xuất cho C7** | Dò ít nhất hai lỗi khác nguồn/kiểu từ S8-01/02/03/06; đối chiếu approval_used với đúng ticket, đơn, khách, trạng thái, hạn, số tiền và người duyệt. Dán trace base và prepared; đối chứng S8-05 hợp lệ. Điền đủ ba phần bảng soát lỗi, nêu người chịu hại và tác hại định lượng. Gửi Phúc các nhánh nguyên nhân cho C6; chỉ đề xuất sửa guard nếu có lỗi còn tồn tại, không sửa để tạo khác biệt giả. |
+| **Khôi · làm ngay** | **C8 + `lab10/monitors.py`; dữ kiện C7** | Thêm ít nhất một monitor mới không dùng nhãn, đăng ký MONITORS; đo nguyên nhân S8 hoặc gánh nặng review. Kiểm giá trị giữa bộ nền và S8 khác nhau, ghi đủ công thức, mẫu số, xử lý thiếu dữ liệu, ngưỡng cảnh báo và điểm mù. Nếu đếm approval bị chặn mà guard chưa có sự kiện riêng, gửi Phúc đề xuất event và phối hợp tích hợp; không dùng ticket ID/câu chữ hoặc đọc label/pass để tạo tín hiệu. Bàn giao code, mục C8 và output chạy thật. |
+| **Hưng · làm ngay, cập nhật sau report cuối** | **C5 câu 3.2; căn cứ kinh tế C7/C12** | Viết specification có thể kiểm được về phê duyệt/trách nhiệm hoặc chi phí/hàng chờ. Phân tích base→prepared: kiểm tay 100%→10%, 36→0 ca ùn, chi phí 11.225→2.952đ/ticket, ROI -2,45→2,39; không nhầm tổng tiền qua 5 seed với tiền/ngày. Soạn đề xuất v2 và ba dòng bắt buộc, chờ mã report cuối để chốt; không tăng người hoặc cắt phạm vi khi chưa có căn cứ. Gửi report và journal gốc của các lần chạy vòng 1 được dẫn trong B7.4/TEAM.md cho Phúc. |
+| **Hoàng · làm ngay** | **C3.4 + một dòng C3.1 Bước 2; C4; C5 câu 3.3; C10–C11** | Điền hai nhóm người (nhân viên duyệt, trưởng ca đứng tên), hai mốc tin quá mức/không tin và điều kiện tin vừa đủ; mô tả quyền kiểm soát với khoản hoàn trên hạn mức. HAZOP S8 >=3 dòng, một giả định môi trường, >=1 risk register có PIC, checklist 9 nhóm và runbook 4–5. Quy trình phải khớp approver NV-HANH, decision_note=true, sampling=10%, SLA=60 phút và có cách trở lại kiểm tay khi mất tin. Chỉ điền phần C3 dành cho S8. Gửi report/journal gốc hai lần chạy vòng 1 cho Phúc. |
+| **Phúc · tổng hợp sau C2/C4/C5, song song hỏi Coach** | **C6, C7, C9; C0/report cuối; C12; tích hợp** | Dựng fault tree TRƯỚC sửa từ report S8 ban đầu, có ít nhất hai nhánh ở hai tầng và bằng chứng tại lá; không gán monitor mới vào trạng thái trước sửa. Tổng hợp C7 và fault tree SAU ở C9, chỉ rõ cổng đã có từ prepared và phần bổ sung vòng 2. Tích hợp monitor/event cần thiết, kiểm không sửa tiêu chí/snapshot/thẻ. Chạy eval S8 after, eval base after và grade cuối trên máy Phúc; ghi mã thật vào C0. Cùng nhóm chốt C12 theo bằng chứng và tình trạng integrity, không tự coi FAIL là PASS. |
+
+**Phần integrity do Phúc theo dõi riêng:** gửi Coach bằng chứng 19 file khóa đề gốc + 4 file S8 khớp sau chuẩn hóa LF, `core.autocrlf=true`, manifest liệt kê thêm 28 file S1–S7. Giữ report lỗi ban đầu, không sửa MANIFEST/bộ chấm hoặc tải thêm thẻ khác khi chưa có hướng dẫn. Ghi nguyên hướng dẫn thực tế của Coach khi nhận được; không sửa lịch sử để che lỗi.
+
+### Mốc tích hợp và hoàn thành bài nộp
+
+1. **Phân tích trước:** Hảo giao C2, Hoàng giao C3/C4 và giả định, Hưng giao specification; Phúc tổng hợp C6. Mọi người có thể phân tích và viết code trên nhánh riêng, nhưng phải giữ bằng chứng trước sửa đã lưu ở C0–C1.
+2. **Thêm theo dõi:** Khôi bàn giao monitor và C8; Phúc tích hợp code/event nếu cần. C7 ghi đúng thay đổi thực tế; không nhận guard vòng 1 là code mới vòng 2. C9 đánh dấu nhánh đã chặn, nhánh chỉ phát hiện và nhánh còn hở.
+3. **Chạy bản cuối trên máy Phúc:** `python -m lab10.eval --suite S8 --stage after --note "monitor S8 và bản tích hợp cuối"`, `python -m lab10.eval --suite base --stage after --note "kiểm hồi quy cuối S8"`, `python -m lab10.grade --incident S8`. Nếu thay đổi guard/config thì chạy thêm public tests. Report mới là bằng chứng mới, không thay thế hoặc sửa ngày các lần chạy cũ.
+4. **Quyết định:** Phúc và Hưng hoàn thiện C12: đổi/giữ so với v1, số theo kho/hãng, decision_rule, PIC, ngày quyết định lại và ba dòng bắt buộc. Hoàng kiểm nội dung vận hành/pháp lý. Nếu integrity chưa đạt thì nêu điều kiện chưa đạt và giữ quyết định phù hợp; không tuyên bố bài đã qua.
+5. **Gom bài:** Hoàng điền `submission/submission.json` (team đúng tên repo, đủ 5 `HoVaTen-MSSV`, incident=S8, v1/v2 và three_lines khớp C12). Phúc chạy `python -m lab10.check_submission --collect` trên máy có bằng chứng chung; mỗi người sửa mục thiếu thuộc phần mình tới khi ĐỦ THÀNH PHẦN. Dòng này chỉ xác nhận đủ thành phần, không thay kết luận integrity/grade.
+6. **Cá nhân và Git:** mỗi người tự viết đóng góp, bằng chứng commit/run và exit ticket; Khôi cần thay phần mẫu, Phúc/Hưng bổ sung exit ticket. Dùng `user.name=<MSSV>`, `user.email=<MSSV>@example.com` cho commit tiếp theo; không tự rewrite lịch sử đã chia sẻ. Phúc rà diff, commit/push bản cuối; mỗi thành viên tự nộp link trên LMS.
+
+**Chuyển bằng chứng giữa máy:** Hưng/Hoàng gửi nguyên thư mục các lần chạy được trích dẫn và bản journal gốc (đóng gói riêng theo người để không ghi đè journal của Phúc). Phúc giữ provenance nguồn, đối chiếu run_id rồi gom đủ log/report; không sửa nội dung report hoặc tự dựng dòng journal. Không chạy collect trên từng máy rồi ghi đè submission của nhau. Các mục cá nhân chưa thực hiện phải ghi rõ còn thiếu, không đánh dấu xong thay người khác.
+
+**Tránh xung đột:** Hảo sửa C2; Khôi sửa C8/monitors; Hưng sửa C5 câu 3.2 và bàn giao đề xuất C12; Hoàng sửa C3/C4/C5 câu 3.3/C10/C11; Phúc sửa C0/C1/C6/C7/C9/C12. Vì dùng chung Phiếu C, mỗi người chỉ stage diff phần mình, cập nhật main trước khi tích hợp và kiểm xung đột. C12 do Phúc tích hợp sau cùng.
 
 ### Gom bài và phối hợp Git
 
