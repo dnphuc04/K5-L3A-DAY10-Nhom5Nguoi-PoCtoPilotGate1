@@ -5,7 +5,7 @@
 - Tên nhóm: Nhom5Nguoi
 - Lớp: L3A
 - Repo của bàn: `K5-L3A-DAY10-Nhom5Nguoi-PoCtoPilotGate1`
-- Thẻ sự cố đã bốc (S1–S8):
+- Thẻ sự cố đã bốc (S1–S8): **S8** — trưởng ca CSKH không tin trợ lý, kiểm tay mọi quyết định.
 
 ## Thành viên
 
@@ -49,17 +49,21 @@ Sau khi có B2–B5, cả nhóm cùng làm B6: kỹ thuật, kinh doanh, con ng�
 
 Phúc là người tích hợp config chung: Hưng và Hoàng chỉ sửa mục được giao, đồng bộ lần lượt để tránh xung đột. Chỉ chốt vòng 1 khi cả ba mảng code, business và operations/legal đã được rà soát. Quyết định v1 do cả nhóm thống nhất, không phải quyết định riêng của người ghi phiếu.
 
-### Vòng 2 · Sau khi nhận đúng thẻ sự cố được bốc
+### Vòng 2 · Phân công cụ thể cho thẻ S8
 
-| Người phụ trách | Câu / mục phiếu | Công việc và file |
+**Đã nhận:** commit `e75155b`, sau commit chốt v1 `162a430`. Phúc đã dùng AI đọc đúng thẻ S8, ghi số thẻ và chạy grade trước mọi sửa đổi code/config vòng 2. Grade `R-S8-grade-20261118-164813-3cce15`; C0–C1 đã có bằng chứng. Prepared xử lý đúng 260/260, 0 hoàn sai/lỗi hãng/PII, 0 ùn; tổng grade FAIL vì integrity và chưa có monitor mới. Không sửa snapshot hay tiêu chí đã ký.
+
+| Người | Việc làm ngay | Bàn giao / điều kiện hoàn thành |
 |---|---|---|
-| Đồng Ngọc Phúc | 3.0 · C0–C1; 3.5 · C7; C12 | Nhận thẻ khi Coach cho phép, ghi số thẻ; chạy `grade --incident Sx` trước mọi sửa đổi vòng 2. Tích hợp sửa guard, chạy so sánh ba mốc, tổng hợp quyết định v2 và chuẩn bị demo. |
-| Vũ Văn Hảo | 3.1 · C2; hỗ trợ C3–C4, C6–C7 | Dò ít nhất hai ticket hỏng theo hai kiểu khác nhau; ghi nguồn lỗi, tác hại và bằng chứng; đề xuất sửa kỹ thuật, giúp dựng fault tree trước/sau. |
-| Nguyễn Trần Anh Khôi | 3.6 · C8; hỗ trợ C7, C9 | Viết ít nhất một monitor mới và đăng ký trong `lab10/monitors.py`, chỉ dùng dữ liệu không có nhãn; ghi thước đo, dữ liệu, cách tính; kiểm tra monitor bắt tín hiệu sự cố và chạy regression trên bộ nền. |
-| Nguyễn Việt Hưng | 3.2 · C5; C7, C12 | Viết specification kiểm được; đọc chi phí, ROI và kết quả theo kho/hãng, sửa mục `business` nếu cần; đề xuất Tiếp tục/Thu hẹp/Cải tiến thêm/Dừng có số liệu và phạm vi cụ thể. |
-| Nguyễn Huy Hoàng | 3.1, 3.3, 3.7 · C3–C5, C9–C11 | Điều phối phần riêng của đúng thẻ; HAZOP sự cố ít nhất 3 dòng; giả định môi trường; tổng hợp fault tree sau sửa, risk register, checklist cập nhật, runbook 4–5; sửa operations/legal theo nguyên nhân. |
+| **Phúc** | Điều phối, sở hữu C0–C1 và xử lý lỗi integrity với Coach. Tổng hợp C6/C9 cùng nhóm; sau khi nhận phần việc, chạy grade/regression, tích hợp C7/C12 và chuẩn bị demo. | Báo Coach: 23 file khớp hash khi chuẩn hóa CRLF→LF trong bộ nhớ, 28 file thiếu thuộc S1–S7 do chỉ được lấy S8. Không sửa MANIFEST/bộ chấm hoặc lấy thẻ khác. Ghi lại hướng dẫn thật của Coach, không tự xác nhận integrity đạt. |
+| **Hảo** | **C2**, góp C4/C6/C7: trace base `S8-01`, `S8-02`, `S8-03`, `S8-06` (seed 11), chọn ít nhất hai kiểu sai khác nhau; đối chứng `S8-05` hợp lệ và so prepared. | Dán approval_used và đối chiếu approvals: sai ticket/đơn/khách, hết hạn/thu hồi, vượt max_vnd; phân biệt lỗi chìm với hệ quả mất niềm tin. Chứng minh ca hợp lệ vẫn được phục vụ; không sửa guard chỉ để tạo khác biệt khi prepared đã đạt. |
+| **Khôi** | **C8**, sở hữu `lab10/monitors.py`; hỗ trợ C7 và regression. Thiết kế ít nhất một monitor mới bắt nguyên nhân S8, chỉ dùng monitor_view (không label/pass/wrongful_refund). | Đề xuất đếm sự kiện cổng từ chối/chuyển người vì approval và/hoặc rủi ro review; đăng ký MONITORS, viết đủ thước đo→dữ liệu→cách tính, kiểm base so S8 có tín hiệu khác nhau. Nếu cần thêm event guard phải phối hợp Phúc để không sửa chồng file; không dùng ID S8 làm điều kiện. |
+| **Hưng** | **C5 câu 3.2**, hỗ trợ C7/C12: specification phê duyệt và điều kiện kinh tế; đọc staff_behavior và report ba mốc, phân tích DN/chi phí, thời gian chờ và ROI. | Nêu số trước/sau đúng đơn vị; DN prepared có chi phí cao nhất 3.200đ/ticket; mọi kho đạt. Đề xuất v2 có điều kiện dựa trên số và integrity, không chọn Tiếp tục khi integrity chưa giải quyết; không tăng người hay thu hẹp vô cớ. |
+| **Hoàng** | **C3.4 Hiệu chỉnh lòng tin** cho nhân viên duyệt và trưởng ca, thêm một dòng hoàn trên hạn mức ở **C3.1 Bước 2**; **C4 >=3 dòng**, **C5 câu 3.3**, **C10–C11**. | Giải thích hai mốc tin quá mức/không tin và bằng chứng cần để tin vừa đủ; kiểm approver_id/decision_note/sampling khớp staff_behavior; risk register, checklist 9 nhóm có PIC, runbook 4–5 (điều kiện kiểm mẫu/bật lại, quyền duyệt, kiểm toán). Không ghi nhận phê duyệt của NV-HANH chưa có thật. |
 
-Cả nhóm dựng C6 (fault tree trước sửa), rà soát C9 (sau sửa) và chốt C12: giả định môi trường, giảm hay ngăn tác hại, điều cần đo lại ở pilot thật. Không mở thẻ của nhóm khác; không sửa tiêu chí đã ký hay snapshot vòng 1.
+**Cách phối hợp:** mỗi người sửa đúng mục phiếu được giao; Khôi sửa monitors, Hưng/Hoàng chỉ đề xuất config nếu có nguyên nhân cần đổi. Phúc tích hợp guards/config và chạy lần cuối. C6/C9 do cả nhóm cung cấp nhánh, Phúc tổng hợp. Giữ nguyên Phiếu B/v1. Chỉ hoàn thành C12/submission sau khi có monitor và report cuối; hiện chưa có quyết định v2.
+
+**Lệnh trace cho Hảo (thay ID bằng đúng ticket S8 cần dò):** `python -m lab10.trace --suite S8 --stage base --ticket S8-01 --seed 11`; so với cùng lệnh `--stage prepared`. Grade chung: `python -m lab10.grade --incident S8`.
 
 ### Gom bài và phối hợp Git
 

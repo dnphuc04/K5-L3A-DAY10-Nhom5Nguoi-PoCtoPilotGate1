@@ -1,6 +1,6 @@
 # Phiếu C · Sự cố và quyết định v2 · Khối 3 (phút 125–200)
 
-**Bàn:** ______ · **Thẻ đã bốc:** ___ *(để trống tới phút 125; bốc số xong thì ghi đúng số đó, ví dụ `S3`. Lab Coach đối chiếu với sổ; lệnh tự kiểm tra in dòng này trong report.)*
+**Bàn:** K5-L3A-DAY10-Nhom5Nguoi-PoCtoPilotGate1 · **Thẻ đã bốc:** S8
 
 Mở `incidents/Sx/card.md` của đúng số đã bốc. Các bước trên thẻ trỏ về đúng mục trong phiếu này. Mục C3 chỉ điền phần ứng với
 số thẻ của bàn; các phần khác để trống.
@@ -30,7 +30,7 @@ Mỗi lệnh `lab10.eval` và `lab10.grade` tự ghi một dòng vào `runs/jour
 
 | # | Mã lần chạy | Bộ ticket · mốc | Đổi MỘT thứ gì so với lần trước | pass_rate (khoảng tin cậy 95%) | pass_k | Hoàn sai (đ) · lỗi hãng oan · lộ dữ liệu | Tỉ lệ chuyển người | Kết luận (một câu) |
 |---|---|---|---|---|---|---|---|---|
-| 1 | | Sx · prepared | nhận thẻ đã bốc, chưa sửa thêm (đúng cổng vòng 1 đã chốt) | | | | | |
+| 1 | R-S8-prepared-20261118-164814-3cce15 (grade R-S8-grade-20261118-164813-3cce15) | S8 · prepared | Nhận S8, chưa sửa guard/monitor/config vòng 2; snapshot 518a9ba2 | 1,0 [1,0;1,0] | 1,0 | 0 · 0 · 0 | 0,1346 (review kể cả kiểm mẫu 0,2115) | Cổng vòng 1 xử lý 260/260 lượt đúng; không ùn, chi phí 2.952đ/ticket, ROI 2,39; grade tổng FAIL do integrity và chưa có monitor mới. |
 | 2 | | Sx · after | | | | | | |
 | 3 | | Sx · after | | | | | | |
 | 4 | | base · after | (kiểm không regression) | | | | | |
@@ -47,19 +47,20 @@ Chạy **trước khi sửa bất cứ thứ gì**:
 python3 -m lab10.grade --incident Sx
 ```
 
-- Mã lần chạy grade: `__________` · base: `__________` · prepared: `__________`
-- Cổng vòng 1 đỡ được ô / con số nào (so cột base với cột prepared): …
-- Khối kinh doanh và vận hành còn dòng nào vượt trần: …
+- Mã lần chạy grade: `R-S8-grade-20261118-164813-3cce15` · base: `R-S8-before-20261118-164814-3cce15` · prepared: `R-S8-prepared-20261118-164814-3cce15`. Report ở `runs/`; đây là lần chạy đầu sau nhận thẻ, chưa sửa guard/monitor/config vòng 2. Mốc after tự sinh cùng lần grade hiện giống prepared, chưa phải bằng chứng đã sửa vòng 2.
+- Cổng vòng 1 đỡ được: 52 ticket × 5 seed = 260 lượt; pass_rate từ 0,8654 [0,7692;0,9423] lên 1,0 [1,0;1,0], pass_k từ 0,8654 lên 1,0. Tổng hoàn sai trên 260 lượt từ 6.845.000đ xuống 0 (không nhầm với hoàn sai ngày tệ nhất base 1.369.000đ); lỗi hãng oan từ 35 xuống 0, PII vẫn 0. G1 chặn phê duyệt không đúng ticket/đơn/khách/ngày/hạn mức; config approver NV-HANH, decision_note=true và sampling=10% giúp trạng thái niềm tin đạt.
+- Kinh doanh/vận hành prepared: kiểm lại từ 100% xuống 10%; chờ lâu nhất 216 → 5 phút, ca ùn 36 → 0; chi phí 11.225 → 2.952đ/ticket (làm tay 10.000đ), ROI -2,45 → 2,39; một người 6 ca/giờ, độ phủ 100%. Không còn trần số nào vượt trong report. Tỷ lệ agent chuyển người 0,1346 khác review_rate=0,2115 (kể cả kiểm mẫu).
+- **Chưa được tuyên bố bài đạt:** grade tổng FAIL vì integrity và monitor. Chưa có metric mới ngoài escalation_rate. Chẩn đoán chỉ đọc cho integrity: 23 file hiện hữu không khớp hash bytes nhưng đều khớp MANIFEST sau khi chuyển CRLF về LF trong bộ nhớ; 28 đường dẫn còn thiếu thuộc các thẻ S1–S7, phù hợp việc Coach yêu cầu chỉ lấy S8. Không sửa MANIFEST/bộ chấm, không lấy thẻ khác để lấp lỗi; báo Coach xin hướng dẫn chính thức về line ending Windows và manifest dành cho một thẻ. Tiêu chí và snapshot vòng 1 vẫn nguyên.
 
-**Mở lại pre-mortem (Phiếu B mục B6), viết bằng bút khác màu.** Với thẻ S1, S3, S4, S5 đây là một phần của phần riêng theo thẻ.
+**Đối chiếu pre-mortem (bổ sung ở Phiếu C, không sửa B6 đã chốt):**
 
-- Sự cố trên thẻ thuộc lăng kính nào (kỹ thuật, kinh doanh, con người và vận hành, pháp lý)? …
-- Có nằm trong các lý do bàn đã viết không? Nếu có: cổng vòng 1 đã đỡ được bao nhiêu (đọc cột prepared trong report)? Nếu không: vì sao cả bàn không nghĩ tới? …
+- S8 thuộc kỹ thuật (phê duyệt không hợp lệ), con người/vận hành (mất niềm tin, kiểm tay hết), kinh doanh (chi phí/ROI) và quyền hạn/trách nhiệm người đứng tên.
+- B6 đã dự báo phê duyệt cũ/sai phạm vi và nhân viên mất tin tưởng; prepared cho thấy cả cổng phê duyệt lẫn cấu hình tạo lòng tin đều phát huy tác dụng. Chưa kết luận quan hệ nhân quả của từng thành phần riêng vì chúng được áp dụng cùng nhau; cần đọc trace và điều kiện staff_behavior.
 - Lý do còn thiếu, thêm bây giờ:
 
-| Lý do thất bại (viết ở thì quá khứ) | Lăng kính | Kiểm được bằng gì (trace / data / config nào) |
+| Lý do thất bại (viết ở thì quá khứ) | Lăng kính | Kiểm được bằng gì |
 |---|---|---|
-| | | |
+| Kết quả mô phỏng đã đạt nhưng nhóm chưa có chỉ số không dùng nhãn để nhận ra phê duyệt bị dùng sai hoặc việc kiểm tay quay lại; lại gặp lỗi kiểm hash do đóng gói/line ending khiến bằng chứng chưa qua kiểm toàn vẹn. | Vận hành / kỹ thuật đánh giá | MONITORS chỉ có escalation_rate; grade monitor=false; integrity báo CRLF và thiếu thẻ khác. Khôi bổ sung monitor, Phúc xử lý với Coach, không sửa bộ chấm. |
 
 ---
 
