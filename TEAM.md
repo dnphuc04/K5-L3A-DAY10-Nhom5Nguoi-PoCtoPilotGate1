@@ -79,11 +79,11 @@ Trưởng nhóm, kỹ sư cổng và tích hợp: B0–B1, điều phối B6, B7
 
 ### Đóng góp cụ thể
 
-Đã cung cấp kết quả baseline `R-base-before-20261118-154608-bde05c`. Đã dùng ChatGPT hỗ trợ đọc lab, soạn Phiếu A, phân tích B0–B1 và phân công công việc. Tự bổ sung các phần tích hợp/kiểm thử thực tế sau khi hoàn thành; không tính việc được giao là đã làm.
+Đã cung cấp kết quả baseline `R-base-before-20261118-154608-bde05c`. Đã dùng ChatGPT hỗ trợ đọc lab, soạn Phiếu A, phân tích B0–B1 và phân công công việc. Đã dùng AI hoàn thiện B6 từ phần việc nhóm bàn giao; tích hợp G1–G3, kiểm tra 13 public tests, eval after/prepared, hai behavioral ticket × 5 seed và ca có số điện thoại; chốt snapshot vòng 1, cập nhật B0/B5/B7 và quyết định v1 Cải tiến thêm. Không nhận thay phần nghiên cứu ban đầu của Hảo, Khôi, Hưng, Hoàng; không ghi nhận buổi họp hoặc chữ ký chưa được xác minh.
 
 ### Bằng chứng
 
-Baseline: `runs/R-base-before-20261118-154608-bde05c/report.json`; B0 dòng 1 và B1. Tự bổ sung mã commit ký tiêu chí, commit đóng góp và mã chạy prepared/after khi có.
+Baseline: `runs/R-base-before-20261118-154608-bde05c/report.json`; B0 dòng 1 và B1. Commit ký `19f0edf`; after `R-base-after-20261118-163822-3cce15`; prepared `R-base-prepared-20261118-163931-3cce15`; snapshot `518a9ba2`; kết quả 110/110, tiền sai/lỗi hãng/PII=0, chi phí 4.456đ/ticket, ROI 1,24. B6/B7/B8 ghi đầy đủ bằng chứng; mã commit tích hợp xác định sau khi commit thực tế.
 
 ### Exit ticket
 
