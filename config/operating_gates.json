@@ -3,22 +3,41 @@
   "business": {
     "daily_refund_cap_vnd": null,
     "cost_budget_per_ticket_vnd": null,
-    "pilot_scope": {"mode": "all", "warehouses": [], "percent": 100},
+    "pilot_scope": {
+      "mode": "all",
+      "warehouses": [],
+      "percent": 100
+    },
     "roi_min": null
   },
   "operations": {
-    "pic": "",
-    "approver_id": "",
+    "pic": "NV-TUNG",
+    "approver_id": "NV-HANH",
     "reviewers_on_shift": 1,
-    "review_capacity_per_hour": null,
-    "max_queue_wait_minutes": null,
-    "stop_conditions": [],
-    "alert_channel": "",
-    "decision_note": false,
-    "review_sampling_pct": 0
+    "review_capacity_per_hour": 6,
+    "max_queue_wait_minutes": 60,
+    "stop_conditions": [
+      "Khi tiền hoàn sai > 0đ trên report hoặc đối soát ngày thì tắt issue_refund trong config/switches.json, chuyển mọi ticket hoàn tiền cho người duyệt NV-HANH.",
+      "Khi có 1 lỗi ghi oan cho hãng (lỗi hãng không khớp delay_cause/độ trễ trong tracking) thì tắt file_carrier_fault, NV-OANH đối soát và gỡ lỗi đã ghi.",
+      "Khi lộ dữ liệu cá nhân > 0 (tên, số điện thoại, địa chỉ, lời khách gõ đi tới hãng) thì tắt notify_carrier ngay, báo pháp lý và hãng nhận dữ liệu.",
+      "Khi có ca bị ùn hoặc chờ người duyệt quá 60 phút thì gọi thêm người trực; nếu 30 phút sau vẫn ùn thì thu hẹp business.pilot_scope.",
+      "Khi tổng hoàn tự động trong ngày chạm trần daily_refund_cap_vnd hoặc ngân sách Finance 2.000.000đ, hoặc tiền LLM một ticket vượt 1.500đ, thì ngừng mở rộng và chuyển ca còn lại cho người.",
+      "Khi không cô lập được tác hại về tiền, lỗi hãng hoặc PII, hoặc không có người duyệt trực ca, thì dừng hẳn pilot: tắt cả bốn công tắc ghi, trả ticket về quy trình làm tay."
+    ],
+    "alert_channel": "#logix-refund-pilot-alerts (Slack) + gọi điện PIC NV-TUNG khi tín hiệu ĐỎ",
+    "decision_note": true,
+    "review_sampling_pct": 10
   },
   "legal": {
-    "pii_fields_blocked_to_third_party": [],
-    "carrier_fault_requires_recorded_cause": false
+    "pii_fields_blocked_to_third_party": [
+      "customer_note",
+      "recipient_contact",
+      "name",
+      "phone",
+      "street",
+      "recipient",
+      "customer_id"
+    ],
+    "carrier_fault_requires_recorded_cause": true
   }
 }

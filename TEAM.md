@@ -151,12 +151,22 @@ Vận hành và pháp lý: rà soát mục tiêu Oanh/Hạnh và telemetry Phi�
 
 ### Đóng góp cụ thể
 
-Hoàng tự ghi sau khi làm: các rủi ro đã phân tích, PIC và quy trình đã xác định, thay đổi vận hành/pháp lý, kết quả gom bài và phần có sử dụng AI nếu có.
+Vòng 1 (đã làm):
+- **B4 · HAZOP vòng 1** trên `issue_refund`: 5 dòng kỹ thuật (WRONG thấy trên trace `T-002@55`; INVALID chính sách/phê duyệt, INCOMPLETE đơn chưa giao/nhiều kiện, PERTURBED `directive` hoàn toàn bộ đơn, INCAPABLE LLM `fail_open` — các nhánh chưa thấy trên trace) và 4 dòng ngoài kỹ thuật (dữ liệu gửi bên thứ ba, người duyệt, ngân sách, người đứng tên duyệt).
+- **B5 · Checklist 9 nhóm việc lần 1**: mỗi dòng có PIC tên người; cả 9 dòng ghi **Chưa** vì chưa có guard, `business`, B2/B3, monitor mới và mốc prepared.
+- **Config `operations` + `legal`**: PIC `NV-TUNG`, approver `NV-HANH`, 1 người trực, 6 ca/giờ, chờ tối đa 60 phút, 6 điều kiện dừng, kênh báo tin, `decision_note: true`, kiểm mẫu 10%; chặn 7 trường PII gửi hãng; ghi lỗi hãng phải có nguyên nhân trong tracking.
+- **B7.5 · Runbook 1–3** (người chịu trách nhiệm, 7 tín hiệu vàng/đỏ, cách dừng, thời hạn dừng 15 phút, điều kiện bật lại) và **B7.6 · Giờ cao điểm**, khớp config.
+- Có dùng AI (Claude Code) để đọc code/dữ liệu lab, chạy eval/trace và soạn nháp B4, B5, B7.5–B7.6, config; Hoàng rà lại các con số với report trước khi nộp.
+
+Chưa làm: vòng 2 (C3–C5, C9–C11, runbook 4–5) chờ thẻ sự cố; gom bài `submission.json` và `check_submission --collect`.
 
 ### Bằng chứng
 
-Hoàng tự bổ sung mã commit, mục phiếu/runbook, trường config đã sửa và kết quả check_submission thực tế.
+- Lần chạy: `R-base-after-20261118-160422-0cb2ae` (config operations/legal), `R-base-after-20261118-160436-2a7275` (thử 2 người trực) — Phiếu B mục B0 dòng 4–5.
+- Phiếu B mục B4, B5, B7.5, B7.6; `config/operating_gates.json` mục `operations`, `legal`.
+- Mã commit và kết quả `check_submission` thực tế: bổ sung khi có.
 
 ### Exit ticket
 
-Hoàng tự điền trước khi nộp: một điều học được và một điều còn chưa chắc.
+- **Một điều học được:** cổng config đúng chưa chắc chặn được lỗi. Trên `T-002@55`, bật `carrier_fault_requires_recorded_cause` không ngăn được lỗi ghi oan cho VNX. Tracking vẫn ghi nguyên nhân CARRIER, cái sai là trợ lý lấy số ngày khách tự khai (5 ngày) đè lên DB (2 ngày). Vì vậy phải biết lỗi nằm ở tầng nào (dữ liệu đầu vào hay quy tắc ghi) rồi mới chọn cổng; mỗi cổng phải kiểm lại bằng một lần chạy có mã (`R-base-after-20261118-160422-0cb2ae`).
+- **Một điều còn chưa chắc:** 1 người trực, 6 ca/giờ có chịu được giờ cao điểm thật không. Bộ nền chỉ có khoảng 2,75 ticket/giờ, rải đều, nên chờ lâu nhất là 0 phút. Còn khi lượng ticket gấp ba hoặc LLM lỗi 429 làm tỉ lệ chuyển người tăng vọt, ngưỡng gọi thêm người (hàng chờ ≥ 4 ca, chờ ≥ 30 phút) là mình suy ra chứ chưa đo, và người trực thứ hai vẫn chưa có tên trong `staff`.
