@@ -103,6 +103,8 @@ Kỹ sư cổng: hỗ trợ B2; B7.2–B7.3 (tránh rò rỉ dữ liệu đánh 
 
 Đóng góp có bằng chứng của Khôi: commit `487f7e7` viết B7.2 và hai behavioral ticket B7.3, phát hiện đường gửi recipient_contact/customer_note ngoài bộ nền. Monitor vòng2 và hồ sơ C8 do AI hỗ trợ triển khai theo yêu cầu chung của Phúc; Nhóm đã rà soát và xác nhận nội dung mục cá nhân theo thông báo trưởng nhóm; giữ rõ phần AI hỗ trợ, không nhận đã tự viết code mới nếu chưa làm.
 
+- **Sử dụng AI (vòng 1):** Có dùng AI (Claude Code) để đọc code/dữ liệu lab (`lab10/agent.py`, `data/world.json`), chạy trace mốc base cho hai ticket `--adhoc` trên seed 11–55 và soạn nháp B7.2–B7.3; commit `487f7e7` ghi Claude là đồng tác giả. Khôi tự chọn đơn ngoài bộ nền (`O-1024`, `O-1026`), đối chiếu kỳ vọng với tracking DB và chính sách REFUND-v3, rà lại kết quả trace trước khi bàn giao.
+
 ### Bằng chứng
 
 Commit `487f7e7`; B7.2–B7.3; xác minh tích hợp cuối vòng1 ở `R-base-after-20261118-163822-3cce15`. Monitor mới có bằng chứng chung ở C8, grade cuối `R-S8-grade-20261118-174256-726304`; không quy tác giả cá nhân cho phần AI làm.
