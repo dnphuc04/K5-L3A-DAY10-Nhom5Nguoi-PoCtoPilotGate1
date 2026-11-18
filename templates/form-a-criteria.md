@@ -9,9 +9,9 @@ rồi mới chạy đánh giá. Khối 1 không sửa code.
 
 Ngày thống nhất: 18/11/2026. Nhóm dùng chung bộ tài liệu LogiX-VN của Đồng Ngọc Phúc (2A202603399).
 
-- Thư mục nguồn: `D:\Work\26AI20K\K5-L3A-DAY9-DongNgocPhuc-2A202603399-EvaluationandFailureAnalysis`.
-- PRD v1.1: `docs/PRD_v1.1.md`.
-- Eval card: `docs/eval_card.md` (gồm Core v1 và các phần M5–M7).
+- Repo nguồn (public): [Lab 9 — Đồng Ngọc Phúc](https://github.com/dnphuc04/K5-L3A-DAY9-DongNgocPhuc-2A202603399-EvaluationandFailureAnalysis).
+- PRD v1.1: [docs/PRD_v1.1.md](https://github.com/dnphuc04/K5-L3A-DAY9-DongNgocPhuc-2A202603399-EvaluationandFailureAnalysis/blob/main/docs/PRD_v1.1.md).
+- Eval card: [docs/eval_card.md](https://github.com/dnphuc04/K5-L3A-DAY9-DongNgocPhuc-2A202603399-EvaluationandFailureAnalysis/blob/main/docs/eval_card.md) (gồm Core v1 và các phần M5–M7).
 
 PRD nguồn không đánh số mục §2, §3, §6 như tham chiếu trong đề Lab 10. Khi làm A1, nhóm đối chiếu nội dung PRD với `data/world.json` của Lab 10, đặc biệt phần `staff`. Kết quả, ngưỡng và chi phí Lab 9 chỉ là tài liệu tham khảo; tiêu chí Lab 10 được xác định riêng trước khi chạy đánh giá. Bộ tài liệu nguồn mô tả sandbox offline dùng MockLLM, chưa có phê duyệt release.
 
@@ -30,12 +30,12 @@ PRD nguồn không đánh số mục §2, §3, §6 như tham chiếu trong đề
 
 ### Câu 1.1 · Một mục tiêu cấp hệ thống (khác "model trả lời đúng")
 
-> …
+> Giảm khối lượng xử lý thủ công và chi phí giải quyết yêu cầu hoàn tiền do giao hàng trễ của LogiX-VN trong phạm vi pilot tại hai depot, đồng thời bảo đảm hoàn đúng chính sách và kiểm soát tác hại đối với khách hàng, shop và hãng vận chuyển.
 
 ### Câu 1.2 · Mục tiêu nhìn từ hai người
 
-- Chị Oanh, kế toán đối soát (không dùng trợ lý, nhưng phải khớp sổ với hãng và shop mỗi tuần): …
-- Chị Hạnh, trưởng ca CSKH (phải duyệt những ca trợ lý chuyển sang): …
+- Chị Oanh, kế toán đối soát (không dùng trợ lý, nhưng phải khớp sổ với hãng và shop mỗi tuần): Mỗi khoản hoàn được ghi đúng số tiền và bên chịu tiền, không hoàn trùng; có căn cứ chính sách, tracking và phê duyệt khi cần để truy vết, đối soát với hãng và shop hằng tuần, không quy trách nhiệm oan cho hãng vận chuyển.
+- Chị Hạnh, trưởng ca CSKH (phải duyệt những ca trợ lý chuyển sang): Các ca chuyển người duyệt có đủ dữ kiện, lý do chuyển và lịch sử thao tác để quyết định; khối lượng ca cần duyệt nằm trong năng lực xử lý của ca trực, tránh tồn đọng và kéo dài thời gian chờ của khách hàng.
 
 ---
 
