@@ -97,15 +97,22 @@ Kỹ sư cổng: B2; hỗ trợ B7.1 (kiểm quyền lợi hoàn, căn cứ ghi 
 
 ### Đóng góp cụ thể
 
-Hảo tự ghi sau khi làm: trace đã phân tích, cổng đã đề xuất/sửa, kết quả trước/sau và phần có sử dụng AI nếu có.
+- **Vòng 1 · Khối 2A (B2):** Chạy trace trên `T-002@55` (`stage base`), xác định bước sai đầu tiên tại `03 model_override {"field": "delay_days", "db": 2, "ticket": 5}` (model lấy 5 ngày khách tự khai đè lên `db_delay_days: 2` của tracking DB), dẫn tới hai lỗi chìm nối tiếp ở `06 issue_refund` (hoàn sai `20.000đ` gây lệch sổ cho LogiX / chị Oanh `NV-OANH`) và `07 file_carrier_fault` / `08 notify_carrier` (ghi 1 lỗi oan cho hãng `VNX` và tài xế `TX-VNX-03`). Đã hoàn thành đủ 3 phần của bảng soát lỗi ở Phiếu B mục B2.
+- **Vòng 1 · Khối 2B (hỗ trợ B7.1 & `lab10/guards.py`):** Cài đặt 2 nhánh cổng trong `write_gate(ctx, action)` dùng nguồn sự thật từ `lab10/helpers.py` (`effective_policy`, `ticket_parcel`, `db_delay_days`, `entitlement_vnd`, `carrier_at_fault`) và `ctx.tools`: (1) kiểm tra trùng hoàn và đối chiếu quyền lợi hoàn tiền theo tracking DB/chính sách hiệu lực trước `issue_refund` (`deny` nếu quyền lợi `<= 0` hoặc đã hoàn, `modify` nếu lệch số tiền/`payer`, `escalate` nếu vượt `auto_limit_vnd` thiếu `approval_id`); (2) kiểm tra căn cứ ghi lỗi hãng trước `file_carrier_fault` (`deny` nếu `carrier_at_fault` là `False`, `modify` để đồng bộ `parcel_id`/`carrier_id`/`driver_id`/`delay_days` từ DB). Đã xác minh lại `T-002@55` ở `--stage after` (chuyển từ `HỎNG` sang `ĐẠT {}`, `SỔ CÁI: []`, `LỖI HÃNG: []`) và chạy `unittest discover -s tests` đạt `13/13 OK` (không làm hỏng ca nền nào). Đã ghi đối chiếu trace trước/sau vào Phiếu B mục B7.1 để Phúc rà soát/tích hợp cùng nhóm và Khôi kiểm tra thêm.
+- **Vòng 2 (`C2`, `C7`) & thảo luận chung (`B6`, fault tree):** Chờ nhóm làm tiếp B6 và tới mốc nhận thẻ phút 125 sẽ tự bổ sung sau khi hoàn thành.
+- **Sử dụng AI:** Có dùng Antigravity hỗ trợ đọc cấu trúc codebase (`guards.py`, `helpers.py`, `agent.py`, `world.json`), đối chiếu trace `T-002@55`, viết nháp hai nhánh `write_gate` và biên soạn bảng B2/B7.1; đã trực tiếp chạy kiểm tra lại bằng `lab10.trace` và `unittest` trên máy.
 
 ### Bằng chứng
 
-Hảo tự bổ sung mã commit, ticket@seed, dòng trace và mục B2/B7.1/C2/C7 tương ứng.
+- **Trace trước sửa (`T-002@55 · stage base`):** `03 model_override {"field": "delay_days", "db": 2, "ticket": 5}` → `06 tool issue_refund` (`20.000đ`) & `07 tool file_carrier_fault` (`VNX`, `delay_days: 5`) → `KẾT QUẢ : HỎNG {'status': False, 'refund_amount': False, 'carrier_fault': False}`.
+- **Trace sau sửa (`T-002@55 · stage after`):** `06 guard {"kind": "guard_refund_no_entitlement", "order_id": "O-1002", "db_delay_days": 2, "asked_vnd": 20000, "cause": "CARRIER"}` → `07 gate {"tool": "issue_refund", "action": "deny", ...}` → `08 tool send_reply` (`amount_vnd: 0`) → `SỔ CÁI : []`, `LỖI HÃNG : []`, `GỬI HÃNG : []`, `KẾT QUẢ : ĐẠT {}`.
+- **Unit tests:** `python -m unittest discover -s tests -v` → `Ran 13 tests in 0.812s · OK` (gồm `test_team_guards_do_not_break_base`).
+- **File & mục đã điền:** `lab10/guards.py` (`write_gate`), `templates/form-b-evaluation-gates.md` (mục `B2` và phần hỗ trợ `B7.1`). Mã commit đóng góp và phần vòng 2 (`C2`, `C7`) sẽ bổ sung sau khi commit và sau phút 125.
 
 ### Exit ticket
 
-Hảo tự điền trước khi nộp: một điều học được và một điều còn chưa chắc.
+- **Một điều học được:** Cổng kiểm tra trước khi ghi (`write_gate`) đối chiếu trực tiếp với nguồn sự thật (tracking DB + chính sách hiệu lực) quan trọng hơn việc sửa prompt, vì cùng một ticket (`T-002`), model có thể đúng ở `seed 11` nhưng tự tin sai ở `seed 55` và gây lỗi chìm cho cả kế toán lẫn hãng vận chuyển.
+- **Một điều còn chưa chắc:** Hai nhánh `write_gate` vòng 1 đã chặn hoàn sai và lỗi hãng oan dựa trên DB, nhưng chưa biết ở vòng 2 sự cố có đến từ nhánh khác như dữ liệu đầu vào/phiên bản chính sách/người nhận hay hàng chờ vận hành không — cần đối chiếu thêm sau khi làm B6 với nhóm và nhận thẻ sự cố ở phút 125.
 
 ## NguyenTranAnhKhoi-2A202603422
 

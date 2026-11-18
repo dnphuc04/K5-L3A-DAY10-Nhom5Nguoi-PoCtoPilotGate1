@@ -39,4 +39,54 @@ def pre_guard(ctx):
 
 def write_gate(ctx, action):
     # action = {"tool": "issue_refund", "ticket_id":..., "order_id":..., "amount_vnd":..., "payer":..., ...}
+    tool = action.get("tool")
+    if tool in ("issue_refund", "file_carrier_fault"):
+        order = ctx.tools.lookup_order(action.get("order_id"))
+        pol = H.effective_policy(ctx.tools.lookup_policies(), ctx.as_of)
+        if order is None or pol is None:
+            return Verdict.escalate("thiếu thông tin đơn hàng hoặc chính sách hiệu lực để xác minh")
+        parcel = H.ticket_parcel(order, ctx.ticket, ctx.as_of)
+        db_delay = H.db_delay_days(parcel, ctx.as_of)
+        cause = parcel.get("delay_cause")
+
+        if tool == "issue_refund":
+            if order.get("refund_status") == "REFUNDED" or ctx.tools.ledger_rows(order_id=order["order_id"]):
+                ctx.log("guard_duplicate_refund", order_id=order["order_id"])
+                return Verdict.deny("đơn hàng đã được hoàn tiền trước đó")
+            expected_vnd = H.entitlement_vnd(pol, order, db_delay, cause)
+            asked_vnd = int(action.get("amount_vnd") or 0)
+            if expected_vnd <= 0:
+                ctx.log("guard_refund_no_entitlement", order_id=order["order_id"],
+                        db_delay_days=db_delay, asked_vnd=asked_vnd, cause=cause)
+                return Verdict.deny("không đủ điều kiện hoàn tiền theo tracking DB và chính sách hiệu lực")
+            if asked_vnd != expected_vnd or action.get("payer", "LOGIX") != "LOGIX":
+                if expected_vnd > pol["auto_limit_vnd"] and not action.get("approval_id"):
+                    return Verdict.escalate("quyền lợi hoàn vượt hạn mức tự động, cần phê duyệt hợp lệ")
+                ctx.log("guard_refund_adjusted", order_id=order["order_id"],
+                        asked_vnd=asked_vnd, expected_vnd=expected_vnd, payer=action.get("payer"))
+                return Verdict.modify(
+                    "điều chỉnh tiền hoàn và bên trả theo tracking DB và chính sách hiệu lực",
+                    amount_vnd=expected_vnd,
+                    payer="LOGIX",
+                    basis="policy",
+                )
+
+        if tool == "file_carrier_fault":
+            if not H.carrier_at_fault(pol, parcel, db_delay):
+                ctx.log("guard_carrier_fault_denied", order_id=order["order_id"],
+                        parcel_id=parcel.get("parcel_id"), db_delay_days=db_delay, cause=cause)
+                return Verdict.deny("không đủ căn cứ ghi lỗi hãng theo tracking DB và chính sách hiệu lực")
+            if (action.get("parcel_id") != parcel["parcel_id"]
+                    or action.get("carrier_id") != parcel["carrier_id"]
+                    or action.get("delay_days") != db_delay):
+                ctx.log("guard_carrier_fault_adjusted", order_id=order["order_id"],
+                        parcel_id=parcel["parcel_id"], carrier_id=parcel["carrier_id"], db_delay_days=db_delay)
+                return Verdict.modify(
+                    "đồng bộ kiện, hãng vận chuyển và số ngày trễ theo tracking DB",
+                    parcel_id=parcel["parcel_id"],
+                    carrier_id=parcel["carrier_id"],
+                    driver_id=parcel.get("driver_id"),
+                    delay_days=db_delay,
+                )
+
     return Verdict.allow()
