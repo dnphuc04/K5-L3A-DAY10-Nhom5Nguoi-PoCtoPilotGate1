@@ -5,6 +5,16 @@
 Điền phiếu này **trước khi chạy trợ lý lần nào**. Viết xong thì chép ngưỡng sang `config/acceptance_criteria.json`, ký ở phút 60–65,
 rồi mới chạy đánh giá. Khối 1 không sửa code.
 
+## Tài liệu Lab 9 được nhóm thống nhất chọn
+
+Ngày thống nhất: 18/11/2026. Nhóm dùng chung bộ tài liệu LogiX-VN của Đồng Ngọc Phúc (2A202603399).
+
+- Thư mục nguồn: `D:\Work\26AI20K\K5-L3A-DAY9-DongNgocPhuc-2A202603399-EvaluationandFailureAnalysis`.
+- PRD v1.1: `docs/PRD_v1.1.md`.
+- Eval card: `docs/eval_card.md` (gồm Core v1 và các phần M5–M7).
+
+PRD nguồn không đánh số mục §2, §3, §6 như tham chiếu trong đề Lab 10. Khi làm A1, nhóm đối chiếu nội dung PRD với `data/world.json` của Lab 10, đặc biệt phần `staff`. Kết quả, ngưỡng và chi phí Lab 9 chỉ là tài liệu tham khảo; tiêu chí Lab 10 được xác định riêng trước khi chạy đánh giá. Bộ tài liệu nguồn mô tả sandbox offline dùng MockLLM, chưa có phê duyệt release.
+
 **Mục lục**
 - [A1 · Mục tiêu (câu 1.1, 1.2) · phút 15–20](#a1)
 - [A2 · Thước đo → Dữ liệu → Cách tính (câu 1.3, 1.4) · phút 20–35](#a2)
