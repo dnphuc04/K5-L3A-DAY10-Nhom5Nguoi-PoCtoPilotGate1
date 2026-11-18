@@ -1,6 +1,6 @@
 # Phiếu A · Tiêu chí và cách đo · Khối 1 (phút 15–65)
 
-**Bàn:** ______ · **Người cầm bút chính:** vai Sản phẩm và kinh doanh (câu 1.3: Kỹ sư cổng; câu 1.2, 1.4: Vận hành và pháp lý)
+**Bàn:** K5-L3A-DAY10-Nhom5Nguoi-PoCtoPilotGate1 · **Người cầm bút chính:** vai Sản phẩm và kinh doanh (câu 1.3: Kỹ sư cổng; câu 1.2, 1.4: Vận hành và pháp lý)
 
 Điền phiếu này **trước khi chạy trợ lý lần nào**. Viết xong thì chép ngưỡng sang `config/acceptance_criteria.json`, ký ở phút 60–65,
 rồi mới chạy đánh giá. Khối 1 không sửa code.
@@ -159,8 +159,8 @@ git add config/acceptance_criteria.json config/acceptance_criteria.lock && git c
 
 | Mục | Điền |
 |---|---|
-| Đã ký lúc (giờ máy in hoặc `signed_at` trong `config/acceptance_criteria.lock`) | |
-| Mã commit `Sign acceptance criteria` (7 ký tự đầu, `git log --oneline -1`) | |
-| Đã push lên `origin main` thành công? | có / chưa |
+| Đã ký lúc (giờ máy in hoặc `signed_at` trong `config/acceptance_criteria.lock`) | `2026-11-18T15:44:18` (`signed_at` trong `config/acceptance_criteria.lock`, sha256 `f82841cae713097820552ec0949bcd22181e4e761e9761b7f14f87fad70583a1`); người ký Đồng Ngọc Phúc (2A202603399). Ký trước lần đánh giá đầu tiên `R-base-before-20261118-154608-bde05c` (15:46:08) |
+| Mã commit `Sign acceptance criteria` (7 ký tự đầu, `git log --oneline -1`) | `19f0edf` (commit lúc 2026-11-18 15:44:48 +0700) |
+| Đã push lên `origin main` thành công? | **có**: `git branch -r --contains 19f0edf` → `origin/main`. Kiểm lại ngày 18/11/2026 (Nguyễn Việt Hưng): `python -m lab10.criteria verify` → `"ok": true`, hash hiện tại trùng hash đã ký; không commit nào sau `19f0edf` sửa `config/acceptance_criteria.json` hay `.lock` |
 
 Sau bước này **không sửa** `config/acceptance_criteria.json`, kể cả mở rồi lưu lại bằng trình soạn thảo tự định dạng.

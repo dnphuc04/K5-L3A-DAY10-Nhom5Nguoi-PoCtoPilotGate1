@@ -140,11 +140,21 @@ Sản phẩm và kinh doanh: rà soát, giải thích mục tiêu/ngưỡng Phi�
 
 ### Đóng góp cụ thể
 
-Hưng tự ghi sau khi làm: bản đồ dữ liệu, ví dụ drift, lý do từng con số kinh doanh, đề xuất quyết định và phần có sử dụng AI nếu có.
+Vòng 1 (đã làm):
+- **Phiếu A · rà soát sau khi ký**: kiểm lại các phép tính ở A4 (106/110 = 0,9636 ≥ 0,96; 20/22 = 0,909 ≥ 0,90; ROI 2.000/8.000 = 0,25 tương đương trần 8.000đ/ticket; escalation 0,30 × 10.000đ ≈ 3.000đ/ticket) và câu 1.5 so với đề; điền A5 (ký `2026-11-18T15:44:18`, commit `19f0edf` đã có trên `origin/main`, `lab10.criteria verify` → ok) và dòng "Bàn". Không sửa nội dung A1–A4 đã viết trước khi ký.
+- **B3 · Bản đồ dữ liệu**: người dùng trực tiếp và bên thứ ba, 4 lệnh ghi, các bảng trợ lý đọc; tách **nguồn sự thật** (`promised_date`, `delivered_date`, `delay_cause`, phí/giá trị đơn, ngày hiệu lực chính sách, `approvals`, sổ cái) khỏi **bản sao** (`refund_status` làm mới ban đêm, cờ `index_active`, số ngày khách tự khai); các định dạng dễ sai (`delivered_date: null`, đơn nhiều kiện `O-1013`, đơn không tồn tại, đơn quà).
+- **Ví dụ drift**: REFUND-v3 → v4 ngày 2026-12-01 (trợ lý chọn chính sách theo `index_active` chứ không theo ngày). Đây là **quan hệ vào–ra đổi**: cùng đơn trễ 2 ngày đổi từ từ chối sang hoàn 20.000đ; FORCE_MAJEURE không còn ghi lỗi hãng; `auto_limit` 200.000 → 100.000đ. Chỉ ra các ngưỡng đã ký bị ảnh hưởng và đề xuất chỉ số `policy_mismatch` (không cần nhãn).
+- **B7.4 + `config/operating_gates.json` mục `business`**: `daily_refund_cap_vnd` 1.500.000 (hoàn tự động ≈ 453.000đ/ngày × 3 cao điểm, chừa 500.000đ dưới ngân sách Finance 2.000.000đ); `cost_budget_per_ticket_vnd` 1.500 (= trần Ops/Finance); `pilot_scope` all (mọi kho rẻ hơn làm tay, lỗi không gắn kho); `roi_min` 0,25 (= tiêu chí đã ký, tương đương ≤ 8.000đ/ticket). Đã thử trên bộ nền: không ca mới hỏng, không vượt trần, 13 test OK.
+- **B8 · Dự thảo căn cứ quyết định v1**: điền các ô đã có bằng chứng, đề xuất **Cải tiến thêm** theo `decision_rule` đã ký, kèm cây quyết định A–D để cả nhóm chốt khi có mốc prepared.
+- Có dùng AI (Claude Code) để đọc dữ liệu/code lab, tính các con số, chạy eval/test và soạn nháp B3, B7.4, B8; Hưng rà lại số liệu với `data/world.json` và report.
+
+Chưa làm: vòng 2 (C5, C7, C12) chờ thẻ sự cố; chốt v1 chờ prepared.
 
 ### Bằng chứng
 
-Hưng tự bổ sung mã commit, trường dữ liệu nguồn, các mục B3/B7.4/C5/C7/C12 và mã report dùng để quyết định.
+- Config: `config/operating_gates.json` → `business` (4 khoá); nguồn số: `data/world.json` → `ops_limits` (`daily_auto_refund_budget_vnd`, `max_llm_cost_per_ticket_vnd`), `ops_facts` (`manual_cost_per_ticket_vnd`, `review_cost_per_ticket_vnd`, `review_capacity_per_reviewer_per_hour`, `llm_cost`), `policies[]` (REFUND-v3/v4), `orders[].parcels`, `approvals`; `data/tickets.jsonl` (tổng hoàn đúng 683.000đ/ngày).
+- Lần chạy thử cổng business: `R-base-after-20261118-161730-6f4f66` (nhật ký trên máy của Hưng). Report so sánh: `R-base-before-20261118-154608-bde05c`.
+- Mục phiếu: Phiếu B B3, B7.4, B8 (dự thảo). Mã commit: bổ sung sau khi đẩy.
 
 ### Exit ticket
 
